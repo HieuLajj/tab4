@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3528619ea78c1204b903d2e7f9bd43b2, type: 3}
+  m_Name: Tap
+  m_EditorClassIdentifier: 
+  Datas:
+  - Id: 0
+    TapObject: {fileID: 0}
+    AnhImage: {fileID: 0}
+    Price: 0
+    materialTap: {fileID: 0}
+  - Id: 0
+    TapObject: {fileID: 3703546390188414873, guid: 01dd2f7ccd4b7a54bbacc51f6b523ece, type: 3}
+    AnhImage: {fileID: 21300000, guid: 3a0e8a6b2aed9124ea8fa0fe66274b37, type: 3}
+    Price: 0
+    materialTap: {fileID: 2100000, guid: 10ef8235230a9bd4386bd44f3e397536, type: 2}
+  - Id: 0
+    TapObject: {fileID: 3703546390188414873, guid: 01dd2f7ccd4b7a54bbacc51f6b523ece, type: 3}
+    AnhImage: {fileID: 21300000, guid: e76a1dc401dedb842b1ddba71940b0b0, type: 3}
+    Price: 0
+    materialTap: {fileID: 2100000, guid: 7b42b29a72507de4db65167360d3f659, type: 2}
+  - Id: 0
+    TapObject: {fileID: 3703546390188414873, guid: 01dd2f7ccd4b7a54bbacc51f6b523ece, type: 3}
+    AnhImage: {fileID: 21300000, guid: d7f68a444acb9784589209eb4b138060, type: 3}
+    Price: 0
+    materialTap: {fileID: 2100000, guid: f3e2250f299e17340a673c041e5507ce, type: 2}
+  - Id: 0
+    TapObject: {fileID: 7950389551533887785, guid: 166f1288cb553e7488f0833c18299331, type: 3}
+    AnhImage: {fileID: 21300000, guid: 5cbc2e322b97c9445a0981d78655b3ff, type: 3}
+    Price: 0
+    materialTap: {fileID: 0}
+  - Id: 0
+    TapObject: {fileID: 8940251376138778868, guid: 745af2f46361ebf42984a2cba4620456, type: 3}
+    AnhImage: {fileID: 21300000, guid: 4e9aa96d14bd79c4d870726fa0776aca, type: 3}
+    Price: 0
+    materialTap: {fileID: 0}
