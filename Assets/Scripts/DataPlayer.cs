@@ -12,7 +12,7 @@ public static class DataPlayer
 
         if(allData == null){
             allData = new AllData{
-                itemList = new List<int>(){0,50,100}
+                itemList = new List<int>(){}
             };
             SaveData();
         }

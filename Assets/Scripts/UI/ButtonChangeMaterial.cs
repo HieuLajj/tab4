@@ -23,10 +23,15 @@ public class ButtonChangeMaterial : MonoBehaviour
 
     private ButtonEnum checkActive = ButtonEnum.NOT;
     public Image backgroundImage;
+    private string tagName = null;
     private void Start()
     {
+        tagName = gameObject.tag;
         SetUp();
     }
+
+   
+
     public void ClickChangeMaterial()
     {
         if(checkActive == ButtonEnum.PRICE){
@@ -44,18 +49,18 @@ public class ButtonChangeMaterial : MonoBehaviour
             return;
         }
         if(checkActive != ButtonEnum.ACTIVE) return;
-        if (gameObject.CompareTag("SKIN"))
+        if (tagName =="SKIN")
         {
             Controller.Instance.ChangSkin(Controller.Instance.constantsShop[ShopEnum.SKIN] + index);
-        }else if (gameObject.CompareTag("TRAIL")){
-            Controller.Instance.TrailsObjectTarget = trailsData.NameTag;
+        }else if (tagName == "TRAIL"){
+            Controller.Instance.TrailsObjectTarget = trailsData.Particle.tag;
             Controller.Instance.IndexTrail = index;
             //save trails
             //PlayerPrefs.SetString("TrailsObjectTarget", trailsData.NameTag);
             
             
-            TrailPooling.Instance.PrefabsTrail = trailsData.Particle;
-        }else if (gameObject.CompareTag("TAP"))
+            TrailPooling.Instance.PrefabsTrail = trailsData;
+        }else if (tagName == "TAP")
         {
             Controller.Instance.IndexTap = index;
             TapPooling.Instance.pregabTap = tapData.TapObject;
@@ -81,6 +86,15 @@ public class ButtonChangeMaterial : MonoBehaviour
         UpdateView(id);
     }
     public void UpdateView(int id){
+
+        //if(id == 0 || id == 50 || id == 100)
+        //{
+        //    image.sprite = trailsData.AnhImage;
+        //    TextPrice.gameObject.SetActive(false);
+        //    checkActive = ButtonEnum.ACTIVE;
+        //    return;
+        //}
+
         var isOwned =  DataPlayer.IdCheckData(id);
         if (gameObject.CompareTag("TRAIL"))
         {
@@ -99,6 +113,8 @@ public class ButtonChangeMaterial : MonoBehaviour
         }
 
         if (isOwned){
+
+          
             image.sprite = skinData.AnhImage; 
             TextPrice.gameObject.SetActive(false);
             checkActive = ButtonEnum.ACTIVE;
@@ -117,9 +133,9 @@ public class ButtonChangeMaterial : MonoBehaviour
                 image.sprite = spriteNotPrice;
                 TextPrice.gameObject.SetActive(false);
                 checkActive = ButtonEnum.NOT;
-                if (gameObject.CompareTag("SKIN"))
+                if (tagName == "SKIN")
                 {
-                    Controller.Instance.AddSkinMaterialMemory(this);
+                    //Controller.Instance.AddSkinMaterialMemory(this);
                 }
             }
         }
@@ -133,17 +149,17 @@ public class ButtonChangeMaterial : MonoBehaviour
 
     public void SetUp()
     {
-        if (gameObject.CompareTag("SKIN"))
+        if (tagName == "SKIN")
         {
             skinData = LevelManager.Instance.skindata.GetSkinData(index);
             SetData(Controller.Instance.constantsShop[ShopEnum.SKIN] + index);
         }
-        else if(gameObject.CompareTag("TRAIL"))
+        else if(tagName == "TRAIL")
         {
             trailsData = LevelManager.Instance.materialdata.GetSkinData(index);
             SetData(Controller.Instance.constantsShop[ShopEnum.TRAILS] + index);
         }
-        else if (gameObject.CompareTag("TAP"))
+        else if (tagName == "TAP")
         {
             tapData = LevelManager.Instance.tapdata.GetTapData(index);
             SetData(Controller.Instance.constantsShop[ShopEnum.TOUCH] + index);

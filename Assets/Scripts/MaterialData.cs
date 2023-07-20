@@ -26,5 +26,5 @@ public class TrailsItemData
     public GameObject Particle;
     public Sprite AnhImage;
     public int Price;
-    public string NameTag;
+    public string StringSprite;
 }

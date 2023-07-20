@@ -143,22 +143,22 @@ public class Boom : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, BoomRadius);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (hasExploded)
-        {
-            return;
-        }
-        if (other.gameObject.CompareTag("Block"))
-        {
-            if (BoomCoroutine != null)
-            {
-                StopCoroutine(BoomCoroutine);
-            }
-            CheckBoomed();
-            //gameObject.SetActive(false);
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (hasExploded)
+    //    {
+    //        return;
+    //    }
+    //    if (other.gameObject.CompareTag("Block"))
+    //    {
+    //        if (BoomCoroutine != null)
+    //        {
+    //            StopCoroutine(BoomCoroutine);
+    //        }
+    //        CheckBoomed();
+    //        //gameObject.SetActive(false);
+    //    }
+    //}
 
     public void ActiveEffect()
     {

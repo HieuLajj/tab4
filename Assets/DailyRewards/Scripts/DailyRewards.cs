@@ -168,7 +168,7 @@ namespace NiobiumStudios
                 if (onClaimPrize != null)
                     onClaimPrize(availableReward);
 
-                Debug.Log("ID " + instanceId + " Reward [" + rewards[availableReward - 1] + "] Claimed!");
+                //Debug.Log("ID " + instanceId + " Reward [" + rewards[availableReward - 1] + "] Claimed!");
                 PlayerPrefs.SetInt(GetLastRewardKey(), availableReward);
 
                 // Remove seconds

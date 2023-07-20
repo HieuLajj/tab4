@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Skin
   m_EditorClassIdentifier: 
   Datas:
-  - Id: 0
-    skinMaterials: {fileID: 2100000, guid: cdd860068d785734097fc721daefd829, type: 2}
-    colorSkin: {r: 0.5294118, g: 0.4784314, b: 0.83921576, a: 0}
-    AnhImage: {fileID: 21300000, guid: 536a72aff31f7cf46817e5e65ce55d13, type: 3}
-    Price: 0
   - Id: 1
     skinMaterials: {fileID: 2100000, guid: 86cae63ddc4db314da7a01e2239b0ebd, type: 2}
     colorSkin: {r: 0.16862746, g: 0.3803922, b: 0.57254905, a: 0}
     AnhImage: {fileID: 21300000, guid: f9177ff1b15563e47875f785358aa030, type: 3}
+    Price: 0
+  - Id: 0
+    skinMaterials: {fileID: 2100000, guid: cdd860068d785734097fc721daefd829, type: 2}
+    colorSkin: {r: 0.5294118, g: 0.4784314, b: 0.83921576, a: 0}
+    AnhImage: {fileID: 21300000, guid: 536a72aff31f7cf46817e5e65ce55d13, type: 3}
     Price: 1000
   - Id: 2
     skinMaterials: {fileID: 2100000, guid: 4a8aa05ca95f3f343af738bae0aade1d, type: 2}
@@ -32,7 +32,7 @@ MonoBehaviour:
     skinMaterials: {fileID: 2100000, guid: fefdcd9aba6239449b3d7ebc84e05bb0, type: 2}
     colorSkin: {r: 0.6784314, g: 0.5803922, b: 0.19215688, a: 1}
     AnhImage: {fileID: 21300000, guid: 866c1aece9b64d6429ad757036d9b99f, type: 3}
-    Price: 0
+    Price: 10000
   - Id: 4
     skinMaterials: {fileID: 2100000, guid: 4009ccd1adaa7314888b8f6b297e691b, type: 2}
     colorSkin: {r: 0.15294118, g: 0.49803925, b: 0.49803925, a: 0}

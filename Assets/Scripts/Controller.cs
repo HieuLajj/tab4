@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,7 +45,9 @@ public class Controller : Singleton<Controller>
     [SerializeField]
     float zoomModifierSpeed = 0.1f;
     public int AmountCoin, AmountCoinX2;
-    public List<ButtonChangeMaterial> SkinMaterial = new List<ButtonChangeMaterial>();
+    public List<ButtonChangeSkin> SkinMaterial = new List<ButtonChangeSkin>();
+    public List<ButtonChangeTap> TapMaterial = new List<ButtonChangeTap>();
+    public List<ButtonChangeTrails> TrailMaterial = new List<ButtonChangeTrails>();
 
     Vector2 firstTouchPrevPos, secondTouchPrevPos;
     public int IndexSkin;
@@ -372,7 +375,7 @@ public class Controller : Singleton<Controller>
             //tao hieu ung dung
             if(SettingControll.Instance.VibratorCheck == 1)
             {
-               //Vibrator.Vibrate(1000);
+               Vibrator.Vibrate(1000);
             }
 
             if (LevelManager.Instance.LimitMoveInt <= 0 && Controller.Instance.gameState == StateGame.PLAY)
@@ -445,10 +448,10 @@ public class Controller : Singleton<Controller>
         //        block.StatusBlock = StatusBlock.Gift;
         //    }
         //}
-        //if (GUI.Button(new Rect(100, 200, 200, 60), "Delete"))
-        //{
-        //    PlayerPrefs.DeleteAll();
-        //}
+        if (GUI.Button(new Rect(100, 200, 200, 60), "Delete"))
+        {
+            PlayerPrefs.DeleteAll();
+        }
     }
 
     public void IdentifyDifficult(int Level)
@@ -468,7 +471,7 @@ public class Controller : Singleton<Controller>
         }
     }
 
-    public void AddSkinMaterialMemory(ButtonChangeMaterial g)
+    public void AddSkinMaterialMemory(ButtonChangeSkin g)
     {
         if (!SkinMaterial.Contains(g))
         {
@@ -476,14 +479,14 @@ public class Controller : Singleton<Controller>
         }
     }
 
-    public ButtonChangeMaterial SelectRandomSkin()
+    public ButtonChangeSkin SelectRandomSkin()
     {
         if (SkinMaterial.Count <= 0) { return null; }
         int random = Random.Range(0, SkinMaterial.Count - 1);
         return SkinMaterial[random];
     }
 
-    public void RemoveSkinMaterialMemory(ButtonChangeMaterial g)
+    public void RemoveSkinMaterialMemory(ButtonChangeSkin g)
     {
         if (SkinMaterial.Contains(g))
         {
@@ -491,4 +494,48 @@ public class Controller : Singleton<Controller>
         }
     }
 
+    public void AddTapMaterialMemory(ButtonChangeTap g)
+    {
+        if (!TapMaterial.Contains(g))
+        {
+            TapMaterial.Add(g);
+        }
+    }
+    public ButtonChangeTap SelectRandomTap()
+    {
+        if (TapMaterial.Count <= 0) { return null; }
+        int random = Random.Range(0, TapMaterial.Count - 1);
+        return TapMaterial[random];
+    }
+    public void RemoveTapMaterialMemory(ButtonChangeTap g)
+    {
+        if (TapMaterial.Contains(g))
+        {
+            TapMaterial.Remove(g);
+        }
+    }
+
+
+    public void AddTrailMaterialMemory(ButtonChangeTrails g)
+    {
+        if (!TrailMaterial.Contains(g))
+        {
+            TrailMaterial.Add(g);
+        }
+    }
+
+    public ButtonChangeTrails SelectRandomTrail()
+    {
+        if (TrailMaterial.Count <= 0) { return null; }
+        int random = Random.Range(0, TrailMaterial.Count - 1);
+        return TrailMaterial[random];
+    }
+
+    public void RemoveTrailMaterialMemory(ButtonChangeTrails g)
+    {
+        if (TrailMaterial.Contains(g))
+        {
+            TrailMaterial.Remove(g);
+        }
+    }
 }

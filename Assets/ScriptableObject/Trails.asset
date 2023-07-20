@@ -13,23 +13,43 @@ MonoBehaviour:
   m_Name: Trails
   m_EditorClassIdentifier: 
   Datas:
-  - Id: 0
-    Particle: {fileID: 1791151866999931631, guid: f16f6ce8cb8b65e42b5c91b868711143, type: 3}
-    AnhImage: {fileID: 21300000, guid: 1d8f23d894b43cb43a34994b1435b874, type: 3}
-    Price: 0
-    NameTag: trail7
-  - Id: 1
-    Particle: {fileID: 1791151866999931631, guid: f16f6ce8cb8b65e42b5c91b868711143, type: 3}
-    AnhImage: {fileID: 21300000, guid: c54cad8fe4abcf54198a0314ca7df586, type: 3}
-    Price: 0
-    NameTag: trail8
-  - Id: 2
-    Particle: {fileID: 1791151866999931650, guid: 9431d9581dfa5014990755dad991adaa, type: 3}
-    AnhImage: {fileID: 21300000, guid: 8e40d85d36e980e45b296423ea7b5b3d, type: 3}
-    Price: 0
-    NameTag: trail10
-  - Id: 2
-    Particle: {fileID: 2431146446804150796, guid: fa9588f1c9d817b4f95de149aff7e2c6, type: 3}
+  - Id: 4
+    Particle: {fileID: 0}
     AnhImage: {fileID: 21300000, guid: 5cbc2e322b97c9445a0981d78655b3ff, type: 3}
     Price: 0
-    NameTag: trail6
+    StringSprite: 
+  - Id: 1
+    Particle: {fileID: 1791151866999931631, guid: f16f6ce8cb8b65e42b5c91b868711143, type: 3}
+    AnhImage: {fileID: 21300000, guid: 64c0611baa19bc641a30b0403f8f87eb, type: 3}
+    Price: 1000
+    StringSprite: trail_cicle
+  - Id: 2
+    Particle: {fileID: 1791151866999931631, guid: f16f6ce8cb8b65e42b5c91b868711143, type: 3}
+    AnhImage: {fileID: 21300000, guid: 62993eacfff59a84eb3eb8bc5757de0a, type: 3}
+    Price: 5000
+    StringSprite: trail_star
+  - Id: 3
+    Particle: {fileID: 1791151866999931631, guid: f16f6ce8cb8b65e42b5c91b868711143, type: 3}
+    AnhImage: {fileID: 21300000, guid: 090a182373006f24cb13c37f7146b9dd, type: 3}
+    Price: 10000
+    StringSprite: trail_heart
+  - Id: 5
+    Particle: {fileID: 1791151866999931631, guid: f16f6ce8cb8b65e42b5c91b868711143, type: 3}
+    AnhImage: {fileID: 21300000, guid: 3a9e8c300ad121647a4790127ae10383, type: 3}
+    Price: 0
+    StringSprite: trail_dot
+  - Id: 6
+    Particle: {fileID: 1791151866999931631, guid: f16f6ce8cb8b65e42b5c91b868711143, type: 3}
+    AnhImage: {fileID: 21300000, guid: 641c4d60a52c1d84ba73e9128ac94f03, type: 3}
+    Price: 0
+    StringSprite: trail_snowflakes
+  - Id: 7
+    Particle: {fileID: 1791151866999931631, guid: f16f6ce8cb8b65e42b5c91b868711143, type: 3}
+    AnhImage: {fileID: 21300000, guid: ba840c61d62053948bc58a997976d4b2, type: 3}
+    Price: 0
+    StringSprite: trail_sun
+  - Id: 8
+    Particle: {fileID: 2275955673236029338, guid: 495ccf4201995bf4fa2ccd0cf107bed3, type: 3}
+    AnhImage: {fileID: 21300000, guid: da36fdfc501595b419c304aba444e9f4, type: 3}
+    Price: 0
+    StringSprite: 

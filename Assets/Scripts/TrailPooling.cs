@@ -5,18 +5,20 @@ using UnityEngine;
 
 public class TrailPooling : Singleton<TrailPooling>
 {
-    public GameObject PrefabsTrail;
+    public TrailsItemData PrefabsTrail;
+    public string TrailName;
 
     private void Start()
     {
         Controller.Instance.IndexTrail = PlayerPrefs.GetInt("TrailIndex");
         SetupFirst();
     }
-    public GameObject GetTrail()
+    public GameObject GetTrailpre()
     {
         if (PrefabsTrail == null) return null;
+        if (PrefabsTrail.Particle == null) return null;
         int count = transform.childCount;
-        for(int i = 0; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
             if (!transform.GetChild(i).gameObject.activeInHierarchy)
             {
@@ -29,13 +31,27 @@ public class TrailPooling : Singleton<TrailPooling>
                 }
             }
         }
-        return Instantiate(PrefabsTrail);
+        return Instantiate(PrefabsTrail.Particle);
+    }
+    public GameObject GetTrail()
+    {
+        GameObject trail = GetTrailpre();
+        if(TrailName != null)
+        {
+            Sprite sprite = ControlSpriteAtlas.Instance.AtlasTrail.GetSprite(TrailName);
+            if(sprite == null) { return trail; }
+            TrailparticleElement trailetc =  trail.GetComponent<TrailparticleElement>();
+            trailetc.Setup(sprite, PrefabsTrail.Id);
+
+        }
+        return trail;
     }
 
     private void SetupFirst()
     {
         TrailsItemData trailsItem = LevelManager.Instance.materialdata.GetSkinData(Controller.Instance.IndexTrail);
-        Controller.Instance.TrailsObjectTarget = trailsItem.NameTag;
-        TrailPooling.Instance.PrefabsTrail = trailsItem.Particle;
+        if(trailsItem.Particle == null) return;
+        Controller.Instance.TrailsObjectTarget = trailsItem.Particle.tag;
+        TrailPooling.Instance.PrefabsTrail = trailsItem;
     }
 }
