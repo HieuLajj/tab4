@@ -25,6 +25,12 @@ public enum ShopEnum
     TRAILS,
     TOUCH
 }
+public enum ButtonEnum
+{
+    ACTIVE,
+    PRICE,
+    NOT
+}
 public class Controller : Singleton<Controller>
 {
     public Vector3 screenPosition;
@@ -112,7 +118,8 @@ public class Controller : Singleton<Controller>
                 BoomBtn boomBtn = UIManager.Instance.UIBoom.GetComponent<BoomBtn>();
                 if(!boomBtn.isCountdownActive)
                 {
-                    UIManager.Instance.UIBoom.GetComponent<Button>().interactable = true;
+                    //UIManager.Instance.UIBoom.GetComponent<Button>().interactable = true;
+                    boomBtn.HienUIBoom();
                 }
                 
             }
@@ -336,6 +343,7 @@ public class Controller : Singleton<Controller>
                     float touchDuration = touchEndTime - touchStartTime;
                     if (touchDuration < 0.15f)
                     {
+                        
                         EffectTouch(touch.position);
                         TouchClickBlock();
                     }
@@ -375,7 +383,7 @@ public class Controller : Singleton<Controller>
             //tao hieu ung dung
             if(SettingControll.Instance.VibratorCheck == 1)
             {
-               Vibrator.Vibrate(1000);
+               Vibrator.Vibrate(100);
             }
 
             if (LevelManager.Instance.LimitMoveInt <= 0 && Controller.Instance.gameState == StateGame.PLAY)
@@ -385,8 +393,7 @@ public class Controller : Singleton<Controller>
         }
     }
     public void ZoomInOut()
-    {
-       
+    {      
             Touch firstTouch = Input.GetTouch(0);
             Touch secondTouch = Input.GetTouch(1);
 
@@ -420,6 +427,7 @@ public class Controller : Singleton<Controller>
         if (!WinPS.isPlaying)
         {
            WinPS.Play();
+           MusicController.Instance.PlayClip(MusicController.Instance.ConfettiClip);
         }
         Invoke("AwaitNext",2.0f);
     }
@@ -448,10 +456,10 @@ public class Controller : Singleton<Controller>
         //        block.StatusBlock = StatusBlock.Gift;
         //    }
         //}
-        if (GUI.Button(new Rect(100, 200, 200, 60), "Delete"))
-        {
-            PlayerPrefs.DeleteAll();
-        }
+        //if (GUI.Button(new Rect(100, 200, 200, 60), "Delete"))
+        //{
+        //    PlayerPrefs.DeleteAll();
+        //}
     }
 
     public void IdentifyDifficult(int Level)

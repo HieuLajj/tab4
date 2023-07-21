@@ -8,6 +8,11 @@ using EnhancedUI;
 using EnhancedUI.EnhancedScroller;
 namespace HieuLajj
 {
+    public enum ButtonEnumLevel
+    {
+        ACTIVE,
+        NOT
+    }
     public class ButtonLevel : MonoBehaviour
     {
 
@@ -21,6 +26,7 @@ namespace HieuLajj
         public Image imageButton;
         public TextMeshProUGUI decripText;
         private int flag2 = 0;
+        private ButtonEnumLevel buttonEnumLevel = ButtonEnumLevel.NOT;
         public int Level
         {
             set
@@ -74,6 +80,19 @@ namespace HieuLajj
 
         public void LoadLevel()
         {
+            //if(buttonEnumLevel == ButtonEnumLevel.NOT)
+            //{
+            //    if (SettingControll.Instance.VibratorCheck == 1)
+            //    {
+            //        Vibrator.Vibrate(100);
+            //    }
+            //    return;
+            //}
+            //else
+            //{
+            //    MusicController.Instance.PlayClip(MusicController.Instance.buttonClip);
+            //}
+
             if (UIManager.Instance.SelectHomeUI.activeInHierarchy)
             {
                 UIManager.Instance.SelectHomeUI.SetActive(false);
@@ -117,6 +136,7 @@ namespace HieuLajj
             imageButton.sprite = spiteButton[0];
             decripText.text = "Play Again";
             textLevel.enabled = true;
+            buttonEnumLevel = ButtonEnumLevel.ACTIVE;
         }
         public void Activing()
         {
@@ -129,6 +149,7 @@ namespace HieuLajj
             }
             decripText.text = "Play";
             textLevel.enabled = true;
+            buttonEnumLevel = ButtonEnumLevel.ACTIVE;
         }
 
         public void AwaitActive()
@@ -141,6 +162,7 @@ namespace HieuLajj
             }
             decripText.text = "";
             textLevel.enabled = false;
+            buttonEnumLevel = ButtonEnumLevel.NOT;
         }
     }
 }

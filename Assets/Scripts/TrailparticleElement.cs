@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TrailparticleElement : MonoBehaviour
 {
-    public ParticleSystem particleSystem;
+    new public ParticleSystem particleSystem;
     public int id = -1;
 
     private void Awake()

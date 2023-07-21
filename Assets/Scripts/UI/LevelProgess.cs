@@ -117,8 +117,12 @@ public class LevelProgess : MonoBehaviour
     {
         LevelInGamePlayer+=1;
         StackLevelInGame = 0;
+
         text1.text = LevelInGamePlayer.ToString();
         text2.text = (LevelInGamePlayer + 1) + "";
+
+        uigradient.m_color1 = Color.white;
+        uigradient.m_color2 = Color.white;
         ImageProgess.fillAmount = 0;
         ChangeColor();
     }

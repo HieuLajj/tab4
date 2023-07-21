@@ -157,7 +157,16 @@ public class LevelManager : Singleton<LevelManager>
         SetAllFalse();
         Edittext(linesLevel[level - 1]);
         LevelIDInt = level;
-        LimitMoveInt = (int)(statusLevel.x * statusLevel.y * statusLevel.z);
+        if(level < 6)
+        {
+            UIManager.Instance.LimitIntText.enabled = false;
+            LimitMoveInt = 10000;
+        }
+        else
+        {
+            LimitMoveInt = (int)(statusLevel.x * statusLevel.y * statusLevel.z);
+            UIManager.Instance.LimitIntText.enabled = true;
+        }
         pretransform.localPosition = new Vector3(statusLevel.x / 2, (float)statusLevel.y / 2, (float)statusLevel.z / 2);
         Camera.main.transform.position = new Vector3((float)statusLevel.x / 2, (float)statusLevel.y / 2, ReturnyCamera(levelInt));
         CreateMap();
@@ -250,7 +259,7 @@ public class LevelManager : Singleton<LevelManager>
                         blockscript.GetDirectionBlock(arraydata[flag]);
                         blockscript.Crack(statusLevel/2);
                         blockscript.MoveBlock();
-
+                        blockscript.ChangSkinHmm();
                         blockscript.StatusBlock = StatusBlock.Normal;
                         AddListenerBlock(blockscript);
 
@@ -402,6 +411,7 @@ public class LevelManager : Singleton<LevelManager>
                             blockscript.GetDirectionBlock(arraydata[flag]);
                             blockscript.Crack(statusLevel/2);
                             blockscript.MoveBlock();
+                            blockscript.ChangSkinHmm();
                             block.SetActive(false);
                         }
                         AddListenerBlock(blockscript);
@@ -542,6 +552,16 @@ public class LevelManager : Singleton<LevelManager>
             statusLevel = leveldata.statusID;
             arrayDir = leveldata.arrayDir;
             LimitMoveInt = leveldata.LimitMove;
+            if (LevelIDInt < 6)
+            {
+                UIManager.Instance.LimitIntText.enabled = false;
+                LimitMoveInt = 10000;
+            }
+            else
+            {
+               
+                UIManager.Instance.LimitIntText.enabled = true;
+            }
             return true;
         }
     }

@@ -44,24 +44,24 @@ namespace NiobiumStudios
         {
             currentState = State.Initializing;
             string result = String.Empty;
-            while(connectrionRetries < maxRetries)
-            {
-                WWW www = new WWW(worldClockUrl);
-                while (!www.isDone)
+            //while(connectrionRetries < maxRetries)
+            //{
+            //    WWW www = new WWW(worldClockUrl);
+            //    while (!www.isDone)
                     yield return null;
 
-                if (!string.IsNullOrEmpty(www.error))
-                {
-                    connectrionRetries++;
-                    // Debug.LogError("Error Loading World Clock. Retrying connection " + connectrionRetries);
-                    //errorMessage = www.error;
-                }
-                else
-                {
-                    result = www.text;
-                    break;
-                }
-            }
+            //    if (!string.IsNullOrEmpty(www.error))
+            //    {
+            //        connectrionRetries++;
+            //        // Debug.LogError("Error Loading World Clock. Retrying connection " + connectrionRetries);
+            //        //errorMessage = www.error;
+            //    }
+            //    else
+            //    {
+            //        result = www.text;
+            //        break;
+            //    }
+            //}
             if(!string.IsNullOrEmpty(result))
             {
                 var clockJson = result;

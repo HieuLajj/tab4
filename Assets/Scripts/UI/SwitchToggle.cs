@@ -15,7 +15,7 @@ public class SwitchToggle : MonoBehaviour
     public Toggle toggle;
     public Image DesCripImage;
 
-    public string name;
+    //public string name;
     Vector2 handlePosition;
 
     public SettingT settingT = SettingT.SOUND;

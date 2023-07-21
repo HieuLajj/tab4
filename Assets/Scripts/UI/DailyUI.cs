@@ -10,6 +10,10 @@ public class DailyUI : MonoBehaviour
     }
 
     private void OnDisable() {
-         UIManager.Instance.GameUIIngame.CoinsUI?.SetActive(false);
+        //if (!Application.isPlaying)
+        //{
+        //    return;
+        //}
+        UIManager.Instance.GameUIIngame.CoinsUI?.SetActive(false);
     }
 }

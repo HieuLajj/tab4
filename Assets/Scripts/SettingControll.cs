@@ -35,8 +35,17 @@ public class SettingControll : Singleton<SettingControll>
     public SettinUI settingUI;
     private void Start()
     {
-        SoundCheck = PlayerPrefs.GetInt("SoundCheck");
-        VibratorCheck = PlayerPrefs.GetInt("VibratorCheck");
+        if (PlayerPrefs.HasKey("SoundCheck") || PlayerPrefs.HasKey("SoundCheck"))
+        {
+            SoundCheck = PlayerPrefs.GetInt("SoundCheck");
+            VibratorCheck = PlayerPrefs.GetInt("VibratorCheck");
+        }
+        else
+        {
+            SoundCheck = 1;
+            VibratorCheck = 1;
+        }
+        
     }
 
 }

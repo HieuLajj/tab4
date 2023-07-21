@@ -38,6 +38,8 @@ public class Boom : MonoBehaviour
                     GameObject target = LevelManager.Instance.GetRandomActiveChild();
                     if(target != null)
                     {
+                        // am thanh
+                        MusicController.Instance.PlayClip(MusicController.Instance.swooshClip);
                         BoomCoroutine = StartCoroutine(IMoveBoom(target));
                     }
                     else
@@ -166,6 +168,8 @@ public class Boom : MonoBehaviour
         DisActiveModel();
         if (!ExplosionPS.isPlaying)
         {
+            // khoi dong am thanh
+            MusicController.Instance.PlayClip(MusicController.Instance.ExplosionClip);
             ExplosionPS.Play();
         }
     }

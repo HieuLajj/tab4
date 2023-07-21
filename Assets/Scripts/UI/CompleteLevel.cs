@@ -19,6 +19,7 @@ public class CompleteLevel : UIFuctionUltiliti
     private void OnEnable()
     {
         UIManager.Instance.GameUIIngame.CoinsUI.SetActive(true);
+        MusicController.Instance.PlayClip(MusicController.Instance.CompleteClip);
     }
 
     private void OnDisable()

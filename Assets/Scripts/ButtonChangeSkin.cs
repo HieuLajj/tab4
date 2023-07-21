@@ -61,6 +61,7 @@ public class ButtonChangeSkin : ButtonChange
     {
         if (checkActive == ButtonEnum.PRICE)
         {
+            MusicController.Instance.PlayClip(MusicController.Instance.buttonClip);
             //int coinPlayer = PlayerPrefs.GetInt("Coin");
             if (Controller.Instance.CoinPlayer >= skinData.Price)
             {
@@ -75,7 +76,13 @@ public class ButtonChangeSkin : ButtonChange
             }
             return;
         }
-        if (checkActive != ButtonEnum.ACTIVE) return;
+        if (checkActive != ButtonEnum.ACTIVE) {
+            if (SettingControll.Instance.VibratorCheck == 1)
+            {
+                Vibrator.Vibrate(100);
+            }
+            return;}
+        MusicController.Instance.PlayClip(MusicController.Instance.buttonClip);
         Controller.Instance.ChangSkin(Controller.Instance.constantsShop[ShopEnum.SKIN] + index);
     }
 }

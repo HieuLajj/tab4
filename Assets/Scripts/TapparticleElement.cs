@@ -5,8 +5,8 @@ using UnityEngine;
 public class TapparticleElement : MonoBehaviour
 {
     // Start is called before the first frame update
-    private ParticleSystem particleSystem;
-    private Renderer renderer;
+    new ParticleSystem particleSystem;
+    new Renderer renderer;
     void Awake()
     {
         particleSystem =  transform.GetComponent<ParticleSystem>();

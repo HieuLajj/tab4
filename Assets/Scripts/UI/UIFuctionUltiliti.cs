@@ -12,13 +12,15 @@ public class UIFuctionUltiliti : MonoBehaviour
 
     }
     private void OnDisable() {
-        if (Controller.Instance==null || Controller.Instance.Equals(null))
-        {
-            return;
-        }
+        //if (Controller.Instance==null || Controller.Instance.Equals(null))
+        //{
+        //    return;
+        //}
+       
         if (Controller.Instance.gameState == StateGame.AWAITLOAD) return;
         Controller.Instance.gameState = StateGame.PLAY;
         if (UIManager.Instance.UIBoom.activeInHierarchy) return;
         UIManager.Instance.UIBoom?.GetComponent<BoomBtn>().HienUIBoom();
+      
     }
 }

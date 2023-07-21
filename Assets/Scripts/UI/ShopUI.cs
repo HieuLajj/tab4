@@ -157,4 +157,9 @@ public class ShopUI : UIFuctionUltiliti
             ButtonchangeTrailsTarget.backgroundImage.enabled = false;
         }
     }
+
+    public void AddCoin()
+    {
+        Controller.Instance.CoinPlayer += 300;
+    }
 }

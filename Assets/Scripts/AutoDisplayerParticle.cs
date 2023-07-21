@@ -6,7 +6,7 @@ using UnityEngine;
 public class AutoDisplayerParticle : MonoBehaviour
 {
     // Reference to the particle system
-    ParticleSystem particleSystem;
+    new ParticleSystem particleSystem;
 
     void Awake()
     {

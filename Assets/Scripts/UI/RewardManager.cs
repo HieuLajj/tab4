@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Random = UnityEngine.Random;
 public class RewardManager : MonoBehaviour
 {
     [SerializeField] private GameObject pileOfCoins;
@@ -43,12 +44,15 @@ public class RewardManager : MonoBehaviour
 
     public void CountCoins(Vector2 position)
     {
-      
-        Reset(position);
         
+        Reset(position);
+        int flagcheck = 0;
         pileOfCoins.SetActive(true);
         var delay = 0f;
-
+        int temporyCoin =  (int)(PlayerPrefs.GetInt("BPrize") / pileOfCoins.transform.childCount);
+        temporyCoin = temporyCoin == 0 ? 1 : temporyCoin;
+        int maxMoney = Controller.Instance.CoinPlayer + PlayerPrefs.GetInt("BPrize");
+        int temporyCoinPlayer = Controller.Instance.CoinPlayer;
         for (int i = 0; i < pileOfCoins.transform.childCount; i++)
         {
             pileOfCoins.transform.GetChild(i).DOScale(1f, 0.3f).SetDelay(delay).SetEase(Ease.OutBack);
@@ -61,7 +65,17 @@ public class RewardManager : MonoBehaviour
 
             pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().DOAnchorPos(imagePosition, 0.8f)
                 .SetDelay(delay + 0.5f).SetEase(Ease.InBack).OnComplete(() => {
-                    //Debug.Log("+10");
+                    //Debug.Log("+10");                 
+                    temporyCoinPlayer += temporyCoin;
+                    if(temporyCoinPlayer <= maxMoney)
+                    {
+                        counter.text = Utiliti.SetCoinsText(temporyCoinPlayer);
+                    }
+                    flagcheck++;
+                    if(flagcheck>= pileOfCoins.transform.childCount)
+                    {
+                        CountDollar();
+                    }
                 });
 
 
@@ -76,17 +90,21 @@ public class RewardManager : MonoBehaviour
             counter.transform.parent.GetChild(0).transform.DOScale(1.1f, 0.1f).SetLoops(10, LoopType.Yoyo).SetEase(Ease.InOutSine).SetDelay(1.2f);
         }
 
-        StartCoroutine(CountDollars());
+        //StartCoroutine(CountDollars());
     }
 
-
-    IEnumerator CountDollars()
-    {
-        yield return new WaitForSecondsRealtime(0.5f);
+    public void CountDollar()
+    {    
         Controller.Instance.CoinPlayer += PlayerPrefs.GetInt("BPrize");
-        //Debug.Log(Controller.Instance.CoinPlayer+"fee"+PlayerPrefs.GetInt("BPrize"));
-        // PlayerPrefs.SetInt("Coin", PlayerPrefs.GetInt("Coin") + PlayerPrefs.GetInt("BPrize"));
-        // counter.text = Utiliti.SetCoinsText(PlayerPrefs.GetInt("Coin"));
         PlayerPrefs.SetInt("BPrize", 0);
     }
+    //IEnumerator CountDollars()
+    //{
+    //    yield return new WaitForSecondsRealtime(1f);
+    //    Controller.Instance.CoinPlayer += PlayerPrefs.GetInt("BPrize");
+    //    //Debug.Log(Controller.Instance.CoinPlayer+"fee"+PlayerPrefs.GetInt("BPrize"));
+    //    // PlayerPrefs.SetInt("Coin", PlayerPrefs.GetInt("Coin") + PlayerPrefs.GetInt("BPrize"));
+    //    // counter.text = Utiliti.SetCoinsText(PlayerPrefs.GetInt("Coin"));
+    //    PlayerPrefs.SetInt("BPrize", 0);
+    //}
 }

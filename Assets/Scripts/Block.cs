@@ -89,6 +89,9 @@ public class Block : MonoBehaviour, IListenerBlock
     private void OnEnable()
     {
         endPosition =  transform.position;
+
+        ChangSkinHmm();
+
         if (trail != null)
         {
             trail.SetActive(false);
@@ -107,17 +110,19 @@ public class Block : MonoBehaviour, IListenerBlock
             }
         }
 
-        if(flagSkin != Controller.Instance.IndexSkin)
-        {
-            
-            ISkin(LevelManager.Instance.skindata.GetSkinData(Controller.Instance.IndexSkin));
-        }
-
         if(trailEffect.enabled){
             trailEffect.enabled = false;
         }
         
     } 
+
+    public void ChangSkinHmm()
+    {
+        if (flagSkin != Controller.Instance.IndexSkin)
+        {          
+            ISkin(LevelManager.Instance.skindata.GetSkinData(Controller.Instance.IndexSkin));
+        }
+    }
    
     //kiem tra no la qua hay hop binh thuong
     public void checkRayInput()
@@ -195,12 +200,16 @@ public class Block : MonoBehaviour, IListenerBlock
             if (animationback == true)
             {
                 animationback = false;
+               
                 if (statusBlock == StatusBlock.Normal)
                 {
-                    Vector3 originalPosition = ModelBlock.transform.localPosition;
+                Vector3 originalPosition = ModelBlock.transform.localPosition;
                     Vector3 targetPosition = originalPosition + animationdir * 0.2f;
-                    ModelBlock.transform.DOLocalMove(targetPosition, 0.15f).OnComplete(() =>
+                    ModelBlock.transform.DOLocalMove(targetPosition, 0.1f).OnComplete(() =>
                     {
+                        
+                        MusicController.Instance.PlayRandomButton2();
+                       
                         if (Physics.Raycast(transform.position, dircheck, out hit, Mathf.Infinity, 1 << 6))
                         {
                             Block blockdir = hit.collider.GetComponent<Block>();
@@ -209,32 +218,34 @@ public class Block : MonoBehaviour, IListenerBlock
                                 blockdir.RunAwaitBack(dircheck, animationdir);
                             }
                         }
-                        ModelBlock.transform.DOLocalMove(originalPosition, 0.15f).OnComplete(() =>
+                        ModelBlock.transform.DOLocalMove(originalPosition, 0.1f).OnComplete(() =>
                         {
                             animationback = true;
                         });
                     });
                 }
-                else
+                else if (statusBlock == StatusBlock.Gift)
                 {
-                    Vector3 originalPosition = gift.transform.localPosition;
-                    Vector3 targetPosition = originalPosition + animationdir * 0.2f;
-                    gift.transform.DOLocalMove(targetPosition, 0.15f).OnComplete(() =>
+                Vector3 originalPosition = gift.transform.localPosition;
+                Vector3 targetPosition = originalPosition + animationdir * 0.2f;
+                gift.transform.DOLocalMove(targetPosition, 0.1f).OnComplete(() =>
+                {
+                 
+                    MusicController.Instance.PlayRandomButton2();
+               
+                    if (Physics.Raycast(transform.position, dircheck, out hit, Mathf.Infinity, 1 << 6))
                     {
-
-                        if (Physics.Raycast(transform.position, dircheck, out hit, Mathf.Infinity, 1 << 6))
+                        Block blockdir = hit.collider.GetComponent<Block>();
+                        if (hit.distance < 1)
                         {
-                            Block blockdir = hit.collider.GetComponent<Block>();
-                            if (hit.distance < 1)
-                            {
-                                blockdir.RunAwaitBack(dircheck, animationdir);
-                            }
+                            blockdir.RunAwaitBack(dircheck, animationdir);
                         }
-                        gift.transform.DOLocalMove(originalPosition, 0.15f).OnComplete(() =>
-                        {
-                            animationback = true;
-                        });
+                    }
+                    gift.transform.DOLocalMove(originalPosition, 0.1f).OnComplete(() =>
+                    {
+                        animationback = true;
                     });
+                });
                 }
             }         
     }
@@ -243,12 +254,19 @@ public class Block : MonoBehaviour, IListenerBlock
     {   
         if (animationback == true)
         {
+            // hieu ung am thanh
+            MusicController.Instance.PlayRandomButton2();
+
             animationback = false;
             Vector3 originalPosition = ModelBlock.transform.localPosition;
-            float timeMove = (distancee-0.5f)*0.3f;
+            float timeMove = (distancee-0.5f)*0.15f;
             Vector3 targetPosition = transform.InverseTransformPoint(b.transform.position) - dir2;
             ModelBlock.gameObject.transform.DOLocalMove(targetPosition,timeMove).OnComplete(() =>
             {
+                if (SettingControll.Instance.VibratorCheck == 1)
+                {
+                    Vibrator.Vibrate(100);
+                }
 
                 if (Physics.Raycast(transform.position, dir, out hit, Mathf.Infinity, 1 << 6))
                 {
@@ -265,7 +283,11 @@ public class Block : MonoBehaviour, IListenerBlock
 
     public void RunBlock()
     {
+
         statusBlock = StatusBlock.Die;
+        
+        MusicController.Instance.PlayRandomButton();
+        
 
         if (LevelProgess.Instance.gameObject.activeInHierarchy)
         {
@@ -291,12 +313,12 @@ public class Block : MonoBehaviour, IListenerBlock
         {
             trail.transform.position = transform.position;
             trail.transform.parent = transform;
-            DirectionTrail(trail);
+            //DirectionTrail(trail);
             trail.SetActive(true);
         }
-        for (float alpha = 15f; alpha >= 0; alpha -= 0.1f)
+        for (float alpha = 12f; alpha >= 0; alpha -= 0.1f)
         {
-            transform.Translate(direction * 10 * Time.deltaTime, Space.World);
+            transform.Translate(direction * 15 * Time.deltaTime, Space.World);
             yield return null;
         }
         if(trail != null)
@@ -317,18 +339,18 @@ public class Block : MonoBehaviour, IListenerBlock
     {
         startRotation = transform.rotation;
         startScale = new Vector3(1,1,1);
-        randomScale = Random.Range(0.5f, 2f);
-        transform.localScale = new Vector3(randomScale, randomScale, randomScale);
+        //randomScale = Random.Range(0.5f, 2f);
+        transform.localScale = new Vector3(0, 0, 0);
         transform.rotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
-        transform.DOMove(endPosition, 2f).SetEase(Ease.OutQuad).OnComplete(() =>
+        transform.DOMove(endPosition, 1f).SetEase(Ease.OutQuad).OnComplete(() =>
         {
             Controller.Instance.Checkawaitload();
         });
-        transform.DORotate(new Vector3(0, 360, 0), 2f, RotateMode.FastBeyond360).OnComplete(() =>
+        transform.DORotate(new Vector3(0, 360, 0), 1f, RotateMode.FastBeyond360).OnComplete(() =>
         {
             transform.rotation = startRotation;
         });
-        transform.DOScale(startScale, 2f).OnComplete(() =>
+        transform.DOScale(startScale, 1f).OnComplete(() =>
         {
             transform.localScale = startScale;
         });
@@ -367,41 +389,41 @@ public class Block : MonoBehaviour, IListenerBlock
         }
     }
 
-    public void DirectionTrail( GameObject Trail)
-    {
+    //public void DirectionTrail( GameObject Trail)
+    //{
     
-        switch (Direction)
-        {
-            case DirectionBlock.Left:
+    //    switch (Direction)
+    //    {
+    //        case DirectionBlock.Left:
 
-                Trail.transform.localRotation = Quaternion.Euler(0f, 90.0f, 0.0f);
-                break;
-            case DirectionBlock.Right:
-                Trail.transform.localRotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
-                //Trail.transform.localEulerAngles = new Vector3(0, 90, 0);
-                break;
-            case DirectionBlock.Up:
-                Trail.transform.localRotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
-                //Trail.transform.localEulerAngles = new Vector3(90, 0, 0);
-                break;
-            case DirectionBlock.Down:
-                Trail.transform.localRotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
-                //Trail.transform.localEulerAngles = new Vector3(90, 0, 0);
-                break;
-            case DirectionBlock.Forward:
-                Trail.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-                //Trail.transform.localEulerAngles = new Vector3(0, 0, 0);
-                break;
-            case DirectionBlock.Back:
-                Trail.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-                //Trail.transform.localEulerAngles = new Vector3(0, 0, 0);
-                break;
-            default:
-                Trail.transform.Rotate(new Vector3(0, 0, 0));
-                // Trail.transform.eulerAngles = new Vector3(0, 0, 0);
-                break;
-        }
-    }
+    //            Trail.transform.localRotation = Quaternion.Euler(0f, 90.0f, 0.0f);
+    //            break;
+    //        case DirectionBlock.Right:
+    //            Trail.transform.localRotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+    //            //Trail.transform.localEulerAngles = new Vector3(0, 90, 0);
+    //            break;
+    //        case DirectionBlock.Up:
+    //            Trail.transform.localRotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+    //            //Trail.transform.localEulerAngles = new Vector3(90, 0, 0);
+    //            break;
+    //        case DirectionBlock.Down:
+    //            Trail.transform.localRotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+    //            //Trail.transform.localEulerAngles = new Vector3(90, 0, 0);
+    //            break;
+    //        case DirectionBlock.Forward:
+    //            Trail.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+    //            //Trail.transform.localEulerAngles = new Vector3(0, 0, 0);
+    //            break;
+    //        case DirectionBlock.Back:
+    //            Trail.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+    //            //Trail.transform.localEulerAngles = new Vector3(0, 0, 0);
+    //            break;
+    //        default:
+    //            Trail.transform.Rotate(new Vector3(0, 0, 0));
+    //            // Trail.transform.eulerAngles = new Vector3(0, 0, 0);
+    //            break;
+    //    }
+    //}
     public void GetDirectionBlock(int input)
     {
         switch (input)
