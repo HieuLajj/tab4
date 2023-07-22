@@ -5,6 +5,7 @@ using UnityEngine;
 public class ButtonChangeTap : ButtonChange
 {
     private TapItemData tapData;
+    public CheckFirstButton checkFirstButton;
     private void Awake()
     {
         flag = Controller.Instance.constantsShop[ShopEnum.TOUCH] + index;
@@ -32,6 +33,7 @@ public class ButtonChangeTap : ButtonChange
             image.sprite = tapData.AnhImage;
             TextPrice.transform.parent.gameObject.SetActive(false);
             checkActive = ButtonEnum.ACTIVE;
+             //checkFirstButton.Check();
             return;
         }      
        // }
@@ -42,6 +44,7 @@ public class ButtonChangeTap : ButtonChange
             image.sprite = tapData.AnhImage;
             TextPrice.transform.parent.gameObject.SetActive(false);
             checkActive = ButtonEnum.ACTIVE;
+             checkFirstButton.Check();
         }
         else
         {
@@ -86,6 +89,10 @@ public class ButtonChangeTap : ButtonChange
         Controller.Instance.IndexTap = index;
         TapPooling.Instance.pregabTap = tapData.TapObject;
         TapPooling.Instance.materialTarget = tapData.materialTap;
+        if(checkFirstButton.CheckFirst==0){
+            PlayerPrefs.SetInt("gameObjectUI"+transform.gameObject.GetInstanceID(),1);
+            checkFirstButton.CheckFirst = 1;
+        }
 
         if (tapData.TapObject == null)
         {

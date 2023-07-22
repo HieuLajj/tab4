@@ -10,7 +10,8 @@ public enum StateGame
     AWAIT,
     AWAITLOAD,
     PLAY,
-    WIN
+    WIN,
+    AWAITNEW
 }
 public enum DiffirentEnum
 {
@@ -145,6 +146,8 @@ public class Controller : Singleton<Controller>
             //if(UIManager.Instance.CoinTextPlayer2.gameObject.activeInHierarchy){
                 UIManager.Instance.CoinTextPlayer2.text = Utiliti.SetCoinsText(coinPlayer);
             //}
+            //cap nhap tien bom
+            UIManager.Instance.UIBoom.GetComponent<BoomBtn>().UpdateView();
         }
         get{
             return coinPlayer;

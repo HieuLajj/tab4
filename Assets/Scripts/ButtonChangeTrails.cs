@@ -5,7 +5,8 @@ using UnityEngine;
 public class ButtonChangeTrails : ButtonChange
 {
     public TrailsItemData trailsData;
-
+    //public GameObject NotifiParent;
+    public CheckFirstButton checkFirstButton;
     private void Awake()
     {
         flag = Controller.Instance.constantsShop[ShopEnum.TRAILS] + index;
@@ -31,6 +32,7 @@ public class ButtonChangeTrails : ButtonChange
             image.sprite = trailsData.AnhImage;
             TextPrice.transform.parent.gameObject.SetActive(false);
             checkActive = ButtonEnum.ACTIVE;
+            //checkFirstButton.Check();
             return;
         }
 
@@ -40,6 +42,7 @@ public class ButtonChangeTrails : ButtonChange
             image.sprite = trailsData.AnhImage;
             TextPrice.transform.parent.gameObject.SetActive(false);
             checkActive = ButtonEnum.ACTIVE;
+            checkFirstButton.Check();
         }
         else
         {
@@ -85,6 +88,10 @@ public class ButtonChangeTrails : ButtonChange
         //Controller.Instance.TrailsObjectTarget = trailsData.NameTag;
         
         Controller.Instance.IndexTrail = index;
+        if(checkFirstButton.CheckFirst==0){
+            PlayerPrefs.SetInt("gameObjectUI"+transform.gameObject.GetInstanceID(),1);
+            checkFirstButton.CheckFirst = 1;
+        }
 
         if(trailsData.Particle == null)
         {

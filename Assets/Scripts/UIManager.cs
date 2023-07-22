@@ -55,4 +55,11 @@ public class UIManager : Singleton<UIManager>
         UIBoom.SetActive(true);
         FunctionsButtons.SetActive(true);
     }
+
+    public bool CheckAtivePanel(){
+        if(SelectLevelUI.activeInHierarchy || SelectShopUI.activeInHierarchy){
+            return true;
+        }
+        return false;
+    }
 }

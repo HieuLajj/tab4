@@ -48,4 +48,15 @@ public class SettingControll : Singleton<SettingControll>
         
     }
 
+    public void ActiveShop(){
+        UIManager.Instance.SelectShopUI.SetActive(true);
+    }
+
+    public void Back(){      
+        settingUI.PanelSetting.SetActive(false);
+        if(Controller.Instance.gameState == StateGame.AWAITNEW){
+            UIManager.Instance.CompleteLevelUI.SetActive(true);
+        }
+    }
+
 }

@@ -5,7 +5,8 @@ using UnityEngine;
 public class ButtonChangeSkin : ButtonChange
 {
     private SkinItemData skinData;
-
+    //public GameObject NotifiParent;
+    public CheckFirstButton checkFirstButton;
     private void Awake()
     {
         flag = Controller.Instance.constantsShop[ShopEnum.SKIN] + index;
@@ -25,6 +26,7 @@ public class ButtonChangeSkin : ButtonChange
             image.sprite = skinData.AnhImage;
             TextPrice.transform.parent.gameObject.SetActive(false);
             checkActive = ButtonEnum.ACTIVE;
+            //checkFirstButton.Check();
             return;
         }
 
@@ -34,15 +36,20 @@ public class ButtonChangeSkin : ButtonChange
             image.sprite = skinData.AnhImage;
             TextPrice.transform.parent.gameObject.SetActive(false);
             checkActive = ButtonEnum.ACTIVE;
+            //NotifiParent.gameObject.SetActive(true);
+            //
+            checkFirstButton.Check();
         }
         else
         {
+            
             if (skinData.Price != 0)
             {
                 image.sprite = skinData.AnhImage;
                 TextPrice.transform.parent.gameObject.SetActive(true);
                 TextPrice.text = skinData.Price.ToString();
                 checkActive = ButtonEnum.PRICE;
+                //NotifiParent.gameObject.SetActive(false);
             }
             else
             {
@@ -53,6 +60,7 @@ public class ButtonChangeSkin : ButtonChange
                 //{
                 Controller.Instance.AddSkinMaterialMemory(this);
                 //}
+                //NotifiParent.gameObject.SetActive(false);
             }
         }
     }
@@ -82,6 +90,12 @@ public class ButtonChangeSkin : ButtonChange
                 Vibrator.Vibrate(100);
             }
             return;}
+        if(checkFirstButton.CheckFirst==0){
+            PlayerPrefs.SetInt("gameObjectUI"+transform.gameObject.GetInstanceID(),1);
+            checkFirstButton.CheckFirst = 1;
+        }
+
+        
         MusicController.Instance.PlayClip(MusicController.Instance.buttonClip);
         Controller.Instance.ChangSkin(Controller.Instance.constantsShop[ShopEnum.SKIN] + index);
     }

@@ -10,6 +10,10 @@ public class BoomBtn : MonoBehaviour
     private Button buttonBoom;
     public Image BackgroundImage;
     public Image BoomImage;
+
+    public GameObject Money;
+    public GameObject Video;
+    public GameObject Waring;
     private void Awake()
     {
         buttonBoom = transform.GetComponent<Button>();
@@ -19,7 +23,8 @@ public class BoomBtn : MonoBehaviour
     {
         if (!isCountdownActive)
         {
-            Controller.Instance.Boom.SetActive(true);      
+            Controller.Instance.Boom.SetActive(true); 
+            Waring.gameObject.SetActive(false);     
             StartCoroutine(StartCountdown());
         }
     }
@@ -42,6 +47,8 @@ public class BoomBtn : MonoBehaviour
        
         isCountdownActive = false;
         buttonBoom.interactable = true;
+        Waring.gameObject.SetActive(true);  
+        UpdateView();
     }
 
     public void AnUIBoom(){
@@ -56,6 +63,18 @@ public class BoomBtn : MonoBehaviour
         BoomImage.enabled = true;
         if(!isCountdownActive){
             buttonBoom.interactable = true;
+            UpdateView();
+            Waring.gameObject.SetActive(true);  
+        }
+    }
+
+    public void UpdateView(){
+        if(Controller.Instance.CoinPlayer >= 100){
+            Money.gameObject.SetActive(true);
+            Video.gameObject.SetActive(false);
+        }else{
+            Money.gameObject.SetActive(false);
+            Video.gameObject.SetActive(true);
         }
     }
 }

@@ -17,9 +17,10 @@ public class UIFuctionUltiliti : MonoBehaviour
         //    return;
         //}
        
-        if (Controller.Instance.gameState == StateGame.AWAITLOAD) return;
+        if (Controller.Instance.gameState == StateGame.AWAITLOAD || UIManager.Instance.SelectHomeUI.activeInHierarchy || Controller.Instance.gameState == StateGame.AWAITNEW) return;
+        
         Controller.Instance.gameState = StateGame.PLAY;
-        if (UIManager.Instance.UIBoom.activeInHierarchy) return;
+        if (UIManager.Instance.UIBoom.activeInHierarchy ) return;
         UIManager.Instance.UIBoom?.GetComponent<BoomBtn>().HienUIBoom();
       
     }

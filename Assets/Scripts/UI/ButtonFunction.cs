@@ -16,7 +16,7 @@ public class ButtonFunction : MonoBehaviour
         }else if(gameObject.name == "BackFT"){
             BackHomeUI();
         }else if(gameObject.name == "ResetFT"){
-            if (Controller.Instance.gameState == StateGame.AWAITLOAD) return;
+            if (Controller.Instance.gameState == StateGame.AWAITLOAD || Controller.Instance.gameState == StateGame.WIN) return;
             ActiveResetUI();
         }
         

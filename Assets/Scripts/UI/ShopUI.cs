@@ -21,6 +21,10 @@ public class ShopUI : UIFuctionUltiliti
     public static ButtonChangeTap ButtonchangeTapTarget;
     public static ButtonChangeTrails ButtonchangeTrailsTarget;
 
+    private bool SkinCoroutineCheck = false;
+    private bool TapCoroutineCheck = false;
+    private bool TrailCoroutineCheck = false;
+
     private void OnEnable() {
         Controller.Instance.gameState = StateGame.AWAIT;
         UIManager.Instance.UIBoom?.GetComponent<BoomBtn>().AnUIBoom();
@@ -39,6 +43,7 @@ public class ShopUI : UIFuctionUltiliti
     }
 
     private void OnDisable() {
+        if (Controller.Instance.gameState == StateGame.AWAITLOAD || UIManager.Instance.SelectHomeUI.activeInHierarchy || Controller.Instance.gameState == StateGame.AWAITNEW) return;
         if (Controller.Instance)
         {
             Controller.Instance.gameState = StateGame.PLAY;
@@ -49,22 +54,26 @@ public class ShopUI : UIFuctionUltiliti
 
     public void RanDomShop()
     {
+        if(SkinCoroutineCheck){return;}
         StartCoroutine(RandomShop());
     }
 
     public void RandomTapShop()
     {
+        if(TapCoroutineCheck){return;}
         StartCoroutine(RandomTap());
     }
 
     public void RandomTrailShop()
     {
+        if(TrailCoroutineCheck){return;}
         StartCoroutine(RandomTrail());
     }
     IEnumerator RandomShop()
     {
         float time = 0;
         ButtonChangeSkin buttonChangeMaterial;
+        SkinCoroutineCheck = true;
         while (time<10)
         {
             time += 20 * Time.deltaTime;
@@ -91,6 +100,7 @@ public class ShopUI : UIFuctionUltiliti
             //ButtonchangeSkinTarget.backgroundImage.color = Color.white;
             ButtonchangeSkinTarget.backgroundImage.enabled = false;
         }
+        SkinCoroutineCheck = false;
     }
 
 
@@ -98,6 +108,7 @@ public class ShopUI : UIFuctionUltiliti
     {
         float time = 0;
         ButtonChangeTap buttonChangeTap;
+        TapCoroutineCheck = true;
         while (time < 10)
         {
             time += 20 * Time.deltaTime;
@@ -124,12 +135,14 @@ public class ShopUI : UIFuctionUltiliti
             //ButtonchangeSkinTarget.backgroundImage.color = Color.white;
             ButtonchangeTapTarget.backgroundImage.enabled = false;
         }
+        TapCoroutineCheck = false;
     }
 
     IEnumerator RandomTrail()
     {
         float time = 0;
         ButtonChangeTrails buttonChangeTrail;
+        TrailCoroutineCheck = true;
         while (time < 10)
         {
             time += 20 * Time.deltaTime;
@@ -156,6 +169,7 @@ public class ShopUI : UIFuctionUltiliti
             //ButtonchangeSkinTarget.backgroundImage.color = Color.white;
             ButtonchangeTrailsTarget.backgroundImage.enabled = false;
         }
+        TrailCoroutineCheck = false;
     }
 
     public void AddCoin()

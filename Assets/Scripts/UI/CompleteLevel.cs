@@ -11,7 +11,10 @@ public class CompleteLevel : UIFuctionUltiliti
         Controller.Instance.gameState = StateGame.AWAIT;
         if(UIManager.Instance.SelectHomeUI.activeInHierarchy){
 
-        }else{
+        }else if(UIManager.Instance.CheckAtivePanel()){
+            Controller.Instance.gameState = StateGame.AWAITNEW;
+        }
+        else{
             LevelManager.Instance.NextLevel();
         }
         
@@ -37,5 +40,11 @@ public class CompleteLevel : UIFuctionUltiliti
     public void ActiveBtC()
     {
         BtnContinue?.SetActive(true);
+    }
+    public void SettingActive()
+    {
+        Controller.Instance.gameState = StateGame.AWAITNEW;
+        UIManager.Instance.SelectSettingUI.SetActive(true);
+        gameObject.SetActive(false);
     }
 }
