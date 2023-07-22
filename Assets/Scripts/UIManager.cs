@@ -24,6 +24,7 @@ public class UIManager : Singleton<UIManager>
     public GameObject SelectSettingUI;
     public RectTransform canvasRectTransform;
     public TextMeshProUGUI CoinTextPlayer;
+    public TextMeshProUGUI CoinTextPlayer2;
     public TextMeshProUGUI LevelText;
     public TextMeshProUGUI LimitIntText;
     public GameObject DailyCanvas;

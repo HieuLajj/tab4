@@ -8,7 +8,7 @@ public class Coin : MonoBehaviour
     public TextMeshProUGUI textCoin;
     private void OnEnable()
     {
-        if (UIManager.Instance.DailyCanvas.activeInHierarchy || UIManager.Instance.CompleteLevelUI.activeInHierarchy)
+        if (UIManager.Instance.CompleteLevelUI.activeInHierarchy)
         {
             textCoin.color = Color.black;
         }

@@ -141,6 +141,10 @@ public class Controller : Singleton<Controller>
             }
             coinPlayer = value;
             UIManager.Instance.CoinTextPlayer.text = Utiliti.SetCoinsText(coinPlayer);
+
+            //if(UIManager.Instance.CoinTextPlayer2.gameObject.activeInHierarchy){
+                UIManager.Instance.CoinTextPlayer2.text = Utiliti.SetCoinsText(coinPlayer);
+            //}
         }
         get{
             return coinPlayer;
@@ -320,6 +324,7 @@ public class Controller : Singleton<Controller>
         {
             if (Input.touchCount > 0)
             {
+                
                 Touch touch = Input.GetTouch(0);
                
                 if (touch.phase == TouchPhase.Began)
@@ -341,9 +346,10 @@ public class Controller : Singleton<Controller>
                 {
                     float touchEndTime = Time.time;
                     float touchDuration = touchEndTime - touchStartTime;
-                    if (touchDuration < 0.15f)
+                    Debug.Log(Time.deltaTime+"?"+touchDuration );
+                    if (touchDuration < 0.5f)
                     {
-                        
+                        Debug.Log("HAHAHA");
                         EffectTouch(touch.position);
                         TouchClickBlock();
                     }
@@ -456,10 +462,10 @@ public class Controller : Singleton<Controller>
         //        block.StatusBlock = StatusBlock.Gift;
         //    }
         //}
-        //if (GUI.Button(new Rect(100, 200, 200, 60), "Delete"))
-        //{
-        //    PlayerPrefs.DeleteAll();
-        //}
+        if (GUI.Button(new Rect(100, 200, 200, 60), "Delete"))
+        {
+           PlayerPrefs.DeleteAll();
+        }
     }
 
     public void IdentifyDifficult(int Level)
