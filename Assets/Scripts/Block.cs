@@ -114,6 +114,7 @@ public class Block : MonoBehaviour, IListenerBlock
             trailEffect.enabled = false;
         }
         
+        animationback = true;
     } 
 
     public void ChangSkinHmm()

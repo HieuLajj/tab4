@@ -33,30 +33,31 @@ public class LevelManager : Singleton<LevelManager>
         set
         {
             levelInt = value;
-            Debug.Log(levelInt+"Fawefae"+(Controller.Instance.constantsDiffical[DiffirentEnum.HARD] + Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM]));
+           
             if(levelInt >= 0 && levelInt <= Controller.Instance.constantsDiffical[DiffirentEnum.EASY]){
-                 Debug.Log(levelInt+"easy");
+                
                 if(levelInt > PlayerPrefs.GetInt("Easylevel")){
                     PlayerPrefs.SetInt("Easylevel", levelInt);
                     DataDiffical[DiffirentEnum.EASY] = levelInt;
                 }
                 
             }else if(levelInt >= 10 && levelInt <= Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM]+Controller.Instance.constantsDiffical[DiffirentEnum.EASY]){
-                 Debug.Log(levelInt+"medium");
+                 
                 if(levelInt > PlayerPrefs.GetInt("Mediumlevel")){
                     PlayerPrefs.SetInt("Mediumlevel", levelInt);
                     DataDiffical[DiffirentEnum.MEDIUM] = levelInt;
                 }
 
             }else if(levelInt>= 30 && levelInt <= Controller.Instance.constantsDiffical[DiffirentEnum.HARD] + Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM]+Controller.Instance.constantsDiffical[DiffirentEnum.EASY]){
-                Debug.Log("luu hard");
+                
                 if(levelInt > PlayerPrefs.GetInt("Hardlevel")){
-                    Debug.Log("luu hard"+levelInt);
+                    
                     PlayerPrefs.SetInt("Hardlevel", levelInt);
                     DataDiffical[DiffirentEnum.HARD] = levelInt;
                 }
             }
             UIManager.Instance.LevelText.text = $"<u>Level {levelInt} </u>";
+            
             PlayerPrefs.SetInt("Playinglevel", levelInt);
         }
     }
@@ -64,7 +65,8 @@ public class LevelManager : Singleton<LevelManager>
     public int LimitMoveInt{
         set{
             limitMoveInt = value;
-            UIManager.Instance.LimitIntText.text = $"{limitMoveInt} Moves";
+            //UIManager.Instance.LimitIntText.text = $"{limitMoveInt} Moves";  
+            UIManager.Instance.LimitIntText.Value = limitMoveInt;
         }
         get{
             return limitMoveInt;
@@ -92,7 +94,7 @@ public class LevelManager : Singleton<LevelManager>
         DataDiffical[DiffirentEnum.EASY] = PlayerPrefs.GetInt("Easylevel");
         DataDiffical[DiffirentEnum.MEDIUM] = PlayerPrefs.GetInt("Mediumlevel");
         DataDiffical[DiffirentEnum.HARD] = PlayerPrefs.GetInt("Hardlevel");
-        Debug.Log(DataDiffical[DiffirentEnum.HARD]);
+        //Debug.Log(DataDiffical[DiffirentEnum.HARD]);
     }
     private void Start()
     {
@@ -139,10 +141,10 @@ public class LevelManager : Singleton<LevelManager>
             {
                 int index = PlayerPrefs.GetInt("Playinglevel");
                 if(firstgame){
-                    LoadLevelInGame( Mathf.Clamp(index,1,300));
+                    LoadLevelInGame( Mathf.Clamp(index,1,Controller.Instance.constantsDiffical[DiffirentEnum.EASY]+Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM]+Controller.Instance.constantsDiffical[DiffirentEnum.HARD]));
                 }else{
                     int index2 = index+1;
-                    LoadLevelInGame( Mathf.Clamp(index2,1,300));
+                    LoadLevelInGame( Mathf.Clamp(index2,1,Controller.Instance.constantsDiffical[DiffirentEnum.EASY]+Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM]+Controller.Instance.constantsDiffical[DiffirentEnum.HARD]));
                 }
                 //CreateMap();
             }
@@ -166,13 +168,13 @@ public class LevelManager : Singleton<LevelManager>
         LevelIDInt = level;
         if(level < 6)
         {
-            UIManager.Instance.LimitIntText.enabled = false;
+            UIManager.Instance.LimitIntText.Text.enabled = false;
             LimitMoveInt = 10000;
         }
         else
         {
             LimitMoveInt = (int)(statusLevel.x * statusLevel.y * statusLevel.z);
-            UIManager.Instance.LimitIntText.enabled = true;
+            UIManager.Instance.LimitIntText.Text.enabled = true;
         }
         //pretransform.localPosition = new Vector3(statusLevel.x / 2, (float)statusLevel.y / 2, (float)statusLevel.z / 2);
         //Camera.main.transform.position = new Vector3((float)statusLevel.x / 2, (float)statusLevel.y / 2, ReturnyCamera(levelInt));
@@ -477,8 +479,6 @@ public class LevelManager : Singleton<LevelManager>
 
     public void SaveGame(int[] arraydir)
     {
-        Debug.Log("luu dataa");
-
         LevelData levelData = new LevelData();
         levelData.LevelID = levelInt;
         levelData.statusID = statusLevel;
@@ -714,7 +714,7 @@ public class LevelManager : Singleton<LevelManager>
 
     public float ReturnyCamera(float index)
     {
-        Debug.Log(index);
+        
         if(index<6){
             return -8 - index * 0.5f;
         }else if(index < 9){

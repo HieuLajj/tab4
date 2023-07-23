@@ -93,6 +93,7 @@ public class ShopUI : UIFuctionUltiliti
             ButtonchangeSkinTarget = buttonChangeMaterial;
 
         }
+        yield return new WaitForSeconds(1f);
         if (ButtonchangeSkinTarget != null)
         {
             ButtonchangeSkinTarget.Save();
@@ -128,6 +129,7 @@ public class ShopUI : UIFuctionUltiliti
             ButtonchangeTapTarget = buttonChangeTap;
 
         }
+        yield return new WaitForSeconds(1f);
         if (ButtonchangeTapTarget != null)
         {
             ButtonchangeTapTarget.Save();
@@ -162,6 +164,7 @@ public class ShopUI : UIFuctionUltiliti
             ButtonchangeTrailsTarget = buttonChangeTrail;
 
         }
+        yield return new WaitForSeconds(1f);
         if (ButtonchangeTrailsTarget != null)
         {
             ButtonchangeTrailsTarget.Save();

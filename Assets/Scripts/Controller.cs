@@ -159,7 +159,7 @@ public class Controller : Singleton<Controller>
     {
         { DiffirentEnum.EASY, 10 },
         { DiffirentEnum.MEDIUM, 20 },
-        { DiffirentEnum.HARD, 300 }
+        { DiffirentEnum.HARD, 369 }
     };
     public readonly Dictionary<ShopEnum, int> constantsShop = new Dictionary<ShopEnum, int>()
     {
@@ -265,8 +265,9 @@ public class Controller : Singleton<Controller>
           if (timer <= 0.5f)
           {
 
-                  screenPosition = Input.mousePosition;
-                  Ray ray = Camera.main.ScreenPointToRay(screenPosition);
+                   screenPosition = Input.mousePosition;
+                   Ray ray = Camera.main.ScreenPointToRay(screenPosition);
+                    LevelManager.Instance.LimitMoveInt--;
 
                   if (Physics.Raycast(ray, out RaycastHit hitData, Mathf.Infinity, 1 << 6))
                   {

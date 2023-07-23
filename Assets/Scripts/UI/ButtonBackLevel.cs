@@ -29,8 +29,7 @@ public class ButtonBackLevel : MonoBehaviour
     public void Back2()
     {
         transform.parent.gameObject.SetActive(false);
-        Debug.Log(Controller.Instance.gameState+"Fawefwae");
-        //Controller.Instance.gameState = StateGame.PLAY;
+        
         if(Controller.Instance.gameState == StateGame.AWAITNEW){
             LevelManager.Instance.NextLevel();
         }

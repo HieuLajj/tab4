@@ -26,7 +26,7 @@ public class UIManager : Singleton<UIManager>
     public TextMeshProUGUI CoinTextPlayer;
     public TextMeshProUGUI CoinTextPlayer2;
     public TextMeshProUGUI LevelText;
-    public TextMeshProUGUI LimitIntText;
+    public NumberCounter LimitIntText;
     public GameObject DailyCanvas;
     public void SwipeScreen()
     {

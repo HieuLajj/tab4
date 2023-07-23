@@ -15,7 +15,7 @@ MonoBehaviour:
   Datas:
   - Id: 1
     skinMaterials: {fileID: 2100000, guid: 86cae63ddc4db314da7a01e2239b0ebd, type: 2}
-    colorSkin: {r: 0.7019608, g: 0.41960788, b: 0.07450981, a: 0}
+    colorSkin: {r: 0.9433962, g: 0.6005696, b: 0.18155923, a: 0}
     AnhImage: {fileID: 21300000, guid: f9177ff1b15563e47875f785358aa030, type: 3}
     Price: 0
   - Id: 0
@@ -25,76 +25,76 @@ MonoBehaviour:
     Price: 1000
   - Id: 2
     skinMaterials: {fileID: 2100000, guid: 4a8aa05ca95f3f343af738bae0aade1d, type: 2}
-    colorSkin: {r: 0.5568628, g: 0.38823533, b: 0.13725491, a: 0}
+    colorSkin: {r: 0.754717, g: 0.49548343, b: 0.109647535, a: 0}
     AnhImage: {fileID: 21300000, guid: 9548771aa4745124ba2dd1f0d44dc101, type: 3}
     Price: 5000
   - Id: 3
     skinMaterials: {fileID: 2100000, guid: fefdcd9aba6239449b3d7ebc84e05bb0, type: 2}
-    colorSkin: {r: 0.6784314, g: 0.5803922, b: 0.19215688, a: 1}
+    colorSkin: {r: 0.8396226, g: 0.706116, b: 0.17742963, a: 1}
     AnhImage: {fileID: 21300000, guid: 866c1aece9b64d6429ad757036d9b99f, type: 3}
     Price: 10000
   - Id: 4
     skinMaterials: {fileID: 2100000, guid: b5c8ffee8a0736c42a51e574d8932cc6, type: 2}
-    colorSkin: {r: 0.14117648, g: 0.30980393, b: 0.4666667, a: 0}
+    colorSkin: {r: 0.17180489, g: 0.45424578, b: 0.7169812, a: 0}
     AnhImage: {fileID: 21300000, guid: f9177ff1b15563e47875f785358aa030, type: 3}
     Price: 0
   - Id: 5
     skinMaterials: {fileID: 2100000, guid: 4009ccd1adaa7314888b8f6b297e691b, type: 2}
-    colorSkin: {r: 0.15294118, g: 0.49803925, b: 0.49803925, a: 0}
+    colorSkin: {r: 0.1476682, g: 0.6415094, b: 0.6415094, a: 0}
     AnhImage: {fileID: 21300000, guid: 0888c94ed5f581a43802f5ea95644eef, type: 3}
     Price: 0
   - Id: 6
     skinMaterials: {fileID: 2100000, guid: 5833efdf32559b448a84d9a824f29493, type: 2}
-    colorSkin: {r: 0.2901961, g: 0.4784314, b: 0.16470589, a: 0}
+    colorSkin: {r: 0.3777857, g: 0.6603774, b: 0.18939121, a: 0}
     AnhImage: {fileID: 21300000, guid: e714bc949dd09b54bbc23d6a0719201e, type: 3}
     Price: 0
   - Id: 7
     skinMaterials: {fileID: 2100000, guid: 224f4b3bd8769164a9c58d2f229a6436, type: 2}
-    colorSkin: {r: 0.6431373, g: 0.4039216, b: 0.40784317, a: 0}
+    colorSkin: {r: 0.7075472, g: 0.4231933, b: 0.42785478, a: 0}
     AnhImage: {fileID: 21300000, guid: 4de804a2f8e996e42ab5e03c83df12a4, type: 3}
     Price: 0
   - Id: 8
     skinMaterials: {fileID: 2100000, guid: 93519446d1807eb47b50deb44ad31812, type: 2}
-    colorSkin: {r: 0.29803923, g: 0.10196079, b: 0.15294118, a: 0}
+    colorSkin: {r: 0.3679245, g: 0.12287288, b: 0.18658637, a: 0}
     AnhImage: {fileID: 21300000, guid: df46ce830e3000d43808ca1f580866c5, type: 3}
     Price: 0
   - Id: 9
     skinMaterials: {fileID: 2100000, guid: d413feefc131e814c9a54aff45f50fdb, type: 2}
-    colorSkin: {r: 0.427451, g: 0.20000002, b: 0.7490196, a: 0}
+    colorSkin: {r: 0.45975533, g: 0.20441435, b: 0.8207547, a: 0}
     AnhImage: {fileID: 21300000, guid: ef583697edbe8e34db1ab996f41ac887, type: 3}
     Price: 0
   - Id: 10
     skinMaterials: {fileID: 2100000, guid: 59df6a876ebc44a4ab1714cf018e06a7, type: 2}
-    colorSkin: {r: 0.5921569, g: 0.40784317, b: 0.12941177, a: 0}
+    colorSkin: {r: 0.6415094, g: 0.4520415, b: 0.16582409, a: 0}
     AnhImage: {fileID: 21300000, guid: 747aa13ffb7c31e4b8aa07b5d42e479a, type: 3}
     Price: 0
   - Id: 11
     skinMaterials: {fileID: 2100000, guid: 6a792c52a007d0d4b8edc19532c5da3c, type: 2}
-    colorSkin: {r: 0.2392157, g: 0.54509807, b: 0.29411766, a: 0}
+    colorSkin: {r: 0.22442149, g: 0.6037736, b: 0.29251033, a: 0}
     AnhImage: {fileID: 21300000, guid: c0e43d5ce0166d84284f7b93b9e3066e, type: 3}
     Price: 0
   - Id: 12
     skinMaterials: {fileID: 2100000, guid: e4e76c6b63797414f833669a17446598, type: 2}
-    colorSkin: {r: 0.4156863, g: 0.18823531, b: 0.36078432, a: 0}
+    colorSkin: {r: 0.5188679, g: 0.23202205, b: 0.44962928, a: 0}
     AnhImage: {fileID: 21300000, guid: 881d3e57a4cfa6a47964bd29f9c2707c, type: 3}
     Price: 0
   - Id: 13
     skinMaterials: {fileID: 2100000, guid: 56ab7738ce99a124d86fd03da984472c, type: 2}
-    colorSkin: {r: 0.043137256, g: 0.5137255, b: 0.56078434, a: 0}
+    colorSkin: {r: 0.03645422, g: 0.5521991, b: 0.6037736, a: 0}
     AnhImage: {fileID: 21300000, guid: a100012e49f434a4c8cb16dc5a82d1fb, type: 3}
     Price: 0
   - Id: 14
     skinMaterials: {fileID: 2100000, guid: 02e193aefba28904088fa67cef012fb6, type: 2}
-    colorSkin: {r: 0.5882353, g: 0.36862746, b: 0.21960786, a: 0}
+    colorSkin: {r: 0.6886792, g: 0.41541922, b: 0.22999282, a: 0}
     AnhImage: {fileID: 21300000, guid: d8588457e2fe88045aad5bc22e0bb670, type: 3}
     Price: 0
   - Id: 15
     skinMaterials: {fileID: 2100000, guid: 640ece6bc34948648ba78e6ba70f5192, type: 2}
-    colorSkin: {r: 0.73333335, g: 0.43529415, b: 0.43921572, a: 0}
+    colorSkin: {r: 0.7924528, g: 0.45902455, b: 0.46341175, a: 0}
     AnhImage: {fileID: 21300000, guid: 39db45c6b96dadf47a3d037d6050c7d3, type: 3}
     Price: 0
   - Id: 16
     skinMaterials: {fileID: 2100000, guid: 0119df6bf3d31ae418f13ebfd908f91a, type: 2}
-    colorSkin: {r: 0.14117648, g: 0.23529413, b: 0.34901962, a: 0}
+    colorSkin: {r: 0.1701317, g: 0.32377797, b: 0.509434, a: 0}
     AnhImage: {fileID: 21300000, guid: 84220309965ec574ca8fcfcab6cfc420, type: 3}
     Price: 0
