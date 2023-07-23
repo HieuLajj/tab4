@@ -16,6 +16,7 @@ public class LevelData
 }
 public class LevelManager : Singleton<LevelManager>
 {
+    private const string LEVELDATA = "game_data_level";
     public Transform pretransform;
     public Transform temporarymain;
     public GameObject PrefabsObject;
@@ -32,20 +33,25 @@ public class LevelManager : Singleton<LevelManager>
         set
         {
             levelInt = value;
+            Debug.Log(levelInt+"Fawefae"+(Controller.Instance.constantsDiffical[DiffirentEnum.HARD] + Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM]));
             if(levelInt >= 0 && levelInt <= Controller.Instance.constantsDiffical[DiffirentEnum.EASY]){
+                 Debug.Log(levelInt+"easy");
                 if(levelInt > PlayerPrefs.GetInt("Easylevel")){
                     PlayerPrefs.SetInt("Easylevel", levelInt);
                     DataDiffical[DiffirentEnum.EASY] = levelInt;
                 }
                 
-            }else if(levelInt >= 10 && levelInt <= Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM]){
+            }else if(levelInt >= 10 && levelInt <= Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM]+Controller.Instance.constantsDiffical[DiffirentEnum.EASY]){
+                 Debug.Log(levelInt+"medium");
                 if(levelInt > PlayerPrefs.GetInt("Mediumlevel")){
                     PlayerPrefs.SetInt("Mediumlevel", levelInt);
                     DataDiffical[DiffirentEnum.MEDIUM] = levelInt;
                 }
 
-            }else if(levelInt>= 30 && levelInt <= Controller.Instance.constantsDiffical[DiffirentEnum.HARD]){
+            }else if(levelInt>= 30 && levelInt <= Controller.Instance.constantsDiffical[DiffirentEnum.HARD] + Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM]+Controller.Instance.constantsDiffical[DiffirentEnum.EASY]){
+                Debug.Log("luu hard");
                 if(levelInt > PlayerPrefs.GetInt("Hardlevel")){
+                    Debug.Log("luu hard"+levelInt);
                     PlayerPrefs.SetInt("Hardlevel", levelInt);
                     DataDiffical[DiffirentEnum.HARD] = levelInt;
                 }
@@ -86,6 +92,7 @@ public class LevelManager : Singleton<LevelManager>
         DataDiffical[DiffirentEnum.EASY] = PlayerPrefs.GetInt("Easylevel");
         DataDiffical[DiffirentEnum.MEDIUM] = PlayerPrefs.GetInt("Mediumlevel");
         DataDiffical[DiffirentEnum.HARD] = PlayerPrefs.GetInt("Hardlevel");
+        Debug.Log(DataDiffical[DiffirentEnum.HARD]);
     }
     private void Start()
     {
@@ -124,8 +131,8 @@ public class LevelManager : Singleton<LevelManager>
             if (CheckSaveGame() && firstgame)
             {
                 Edittext(linesLevel[levelInt - 1]);
-                pretransform.localPosition = new Vector3(statusLevel.x / 2, (float)statusLevel.y / 2, (float)statusLevel.z / 2);
-                Camera.main.transform.position = new Vector3((float)statusLevel.x / 2, (float)statusLevel.y / 2, ReturnyCamera(levelInt));
+                //pretransform.localPosition = new Vector3(statusLevel.x / 2, (float)statusLevel.y / 2, (float)statusLevel.z / 2);
+                //Camera.main.transform.position = new Vector3((float)statusLevel.x / 2, (float)statusLevel.y / 2, ReturnyCamera(levelInt));
                 CreateMapToSave();
             }
             else
@@ -167,8 +174,8 @@ public class LevelManager : Singleton<LevelManager>
             LimitMoveInt = (int)(statusLevel.x * statusLevel.y * statusLevel.z);
             UIManager.Instance.LimitIntText.enabled = true;
         }
-        pretransform.localPosition = new Vector3(statusLevel.x / 2, (float)statusLevel.y / 2, (float)statusLevel.z / 2);
-        Camera.main.transform.position = new Vector3((float)statusLevel.x / 2, (float)statusLevel.y / 2, ReturnyCamera(levelInt));
+        //pretransform.localPosition = new Vector3(statusLevel.x / 2, (float)statusLevel.y / 2, (float)statusLevel.z / 2);
+        //Camera.main.transform.position = new Vector3((float)statusLevel.x / 2, (float)statusLevel.y / 2, ReturnyCamera(levelInt));
         CreateMap();
 
         Controller.Instance.IdentifyDifficult(levelInt);
@@ -212,7 +219,11 @@ public class LevelManager : Singleton<LevelManager>
         Controller.Instance.checkloadBlock = 0;
         //pretransform.rotation = Quaternion.identity;
         flag = 0;
-        childCountParent = pretransform.childCount;
+
+
+        //childCountParent = pretransform.childCount;
+
+        childCountParent =  Controller.Instance.TempPreForParent.childCount;
         int m = 0;
 
         //kiem tra map deu
@@ -239,26 +250,31 @@ public class LevelManager : Singleton<LevelManager>
                     {
                         GameObject block;
                         if (m <= childCountParent - 1)
-                        {
-                           
-                            block = pretransform.GetChild(m).gameObject;
-                            block.transform.position = new Vector3(j + 0.5f, i + 0.5f, g + 0.5f);
-                            block.transform.rotation = Quaternion.identity;
+                        {                         
+                            block =  Controller.Instance.TempPreForParent.GetChild(m).gameObject;
+                            block.transform.localPosition = new Vector3(j + 0.5f, i + 0.5f, g + 0.5f);
+                            block.transform.localRotation = Quaternion.identity;                           
                             m++;
                             block.SetActive(true);
                             
                         }
                         else
                         {
-                            //block = Instantiate(PrefabsObject, new Vector3(j + 0.5f, i + 0.5f, g + 0.5f), Quaternion.identity, pretransform);  
-                            //block = Instantiate(PrefabsObject, new Vector3(j + 0.5f, i + 0.5f, g + 0.5f), Quaternion.identity);  
-                            block = Instantiate(PrefabsObject, new Vector3(j + 0.5f, i + 0.5f, g + 0.5f), Quaternion.identity, pretransform);   
+                        //     //block = Instantiate(PrefabsObject, new Vector3(j + 0.5f, i + 0.5f, g + 0.5f), Quaternion.identity, pretransform);  
+                        block = Instantiate(PrefabsObject, Controller.Instance.TempPreForParent);  
+                        block.transform.localPosition = new Vector3(j + 0.5f, i + 0.5f, g + 0.5f);
+                        block.transform.localRotation = Quaternion.identity;
+                       // Debug.Log(Controller.Instance.test.position + new Vector3(j + 0.5f, i + 0.5f, g + 0.5f));
+                           // Vector3 position1 = new Vector3(j + 0.5f, i + 0.5f, g + 0.5f);
+                            //block = Instantiate(PrefabsObject,position1,Quaternion.identity, Controller.Instance.test);   
+                            //block.transform.localPosition = position1;
+                            //block.transform.localRotation = Quaternion.
                                            
                         }
                         Block blockscript = block.GetComponent<Block>();
                         blockscript.GetDirectionBlock(arraydata[flag]);
-                        blockscript.Crack(statusLevel/2);
-                        blockscript.MoveBlock();
+                        //blockscript.Crack(statusLevel/2);
+                        //blockscript.MoveBlock();
                         blockscript.ChangSkinHmm();
                         blockscript.StatusBlock = StatusBlock.Normal;
                         AddListenerBlock(blockscript);
@@ -289,7 +305,9 @@ public class LevelManager : Singleton<LevelManager>
         //     // For example, print them to the console
         //     Debug.Log("Key: " + key + ", Value: " + value);
         // }
-        LocateTheCamera(dirColumnRemove, listRow, (int)statusLevel.x-1, (int)statusLevel.y-1);
+
+
+       LocateTheCamera(dirColumnRemove, listRow, (int)statusLevel.x-1, (int)statusLevel.y-1);
     }
 
     public void LocateTheCamera(Dictionary<int,bool> dirColumnRemove, List<int>RowRemove, int MaxColumn, int MaxRow){
@@ -336,31 +354,40 @@ public class LevelManager : Singleton<LevelManager>
     }
 
     public void MoveParent(Vector3 positionafter){
-        if(positionafter!= statusLevel/2){
-            List<Transform> childTransforms = new List<Transform>();
-            foreach (Transform childTransform in pretransform.transform)
+        //if(positionafter!= statusLevel/2){
+            
+            List<Block> childTransforms = new List<Block>();
+            
+            foreach (Transform childTransform in Controller.Instance.TempPreForParent.transform)
             {
-                childTransform.SetParent(Controller.Instance.TempPreForParent);
-                childTransforms.Add(childTransform);
+                //childTransform.SetParent(Controller.Instance.TempPreForParent);
+                childTransforms.Add(childTransform.GetComponent<Block>());
             }
-            pretransform.position = positionafter;
+           // pretransform.position =   positionafter;
 
+           Vector3 positionSTR = Controller.Instance.TempPreForParent.transform.TransformPoint(positionafter);
+            pretransform.position = positionSTR;
+            Camera.main.transform.position = new Vector3(positionSTR.x, positionSTR.y, ReturnyCamera(Math.Max(positionafter.x*2,positionafter.y*2)));
+            
+            
             for(int i=0; i< childTransforms.Count; i++){
-                childTransforms[i].SetParent(pretransform);
+                childTransforms[i].transform.SetParent(pretransform);
+                childTransforms[i].Crack(pretransform.position);
+                childTransforms[i].MoveBlock();
             }
-            Camera.main.transform.position = new(positionafter.x, positionafter.y,Camera.main.transform.position.z);
+            
             // foreach (Transform childTransform in Controller.Instance.TempPreForParent)
             // {
             //     childTransform.SetParent(pretransform);
             //     Debug.Log("hoehfaew");
             // }
-        }
+        //}
     }
 
 
     public void CreateMapToSave()
     {
-        //Debug.Log(statusLevel.x+"load truong hoop 2" + statusLevel.y);
+        
         flag = 0;
         flag2 = 0;
         Controller.Instance.ListenerBlock.Clear();
@@ -388,7 +415,9 @@ public class LevelManager : Singleton<LevelManager>
                 {
                     if (arraydata[flag] != -1)
                     {
-                        GameObject block = Instantiate(PrefabsObject, new Vector3(j + 0.5f, i + 0.5f, g + 0.5f), Quaternion.identity, pretransform);
+                        GameObject block = Instantiate(PrefabsObject, Controller.Instance.TempPreForParent);
+                        block.transform.localPosition = new Vector3(j + 0.5f, i + 0.5f, g + 0.5f);
+                        block.transform.localRotation = Quaternion.identity;
                         Block blockscript = block.GetComponent<Block>();
                         int arrayflag = arrayDir[flag2];
                         if (arrayflag != -1)
@@ -401,16 +430,16 @@ public class LevelManager : Singleton<LevelManager>
                             {
                                 blockscript.GetDirectionBlock(arrayflag);
                             }
-                            blockscript.Crack(statusLevel/2);
-                            blockscript.MoveBlock();
+                            //blockscript.Crack(statusLevel/2);
+                            //blockscript.MoveBlock();
                             Controller.Instance.amountNumberBlock ++;
                         }
                         else
                         {
                             
                             blockscript.GetDirectionBlock(arraydata[flag]);
-                            blockscript.Crack(statusLevel/2);
-                            blockscript.MoveBlock();
+                            //blockscript.Crack(statusLevel/2);
+                            //blockscript.MoveBlock();
                             blockscript.ChangSkinHmm();
                             block.SetActive(false);
                         }
@@ -428,8 +457,7 @@ public class LevelManager : Singleton<LevelManager>
                     dirColumnRemove[j]= true;
                 }
             }
-            if(checkx==0){
-                Debug.Log(i+"test"+checkx);
+            if(checkx==0){      
                 listRow.Add(i);
             }
         }
@@ -449,6 +477,8 @@ public class LevelManager : Singleton<LevelManager>
 
     public void SaveGame(int[] arraydir)
     {
+        Debug.Log("luu dataa");
+
         LevelData levelData = new LevelData();
         levelData.LevelID = levelInt;
         levelData.statusID = statusLevel;
@@ -456,31 +486,29 @@ public class LevelManager : Singleton<LevelManager>
         levelData.LimitMove = limitMoveInt;
 
 
-        string directoryPath = Path.Combine(Application.persistentDataPath, "Resources");
+        // string directoryPath = Path.Combine(Application.persistentDataPath, "Resources");
 
-        string filePath = Path.Combine(directoryPath, "level.json");
+        // string filePath = Path.Combine(directoryPath, "level.json");
 
-        if (!Directory.Exists(directoryPath))
-        {
-            Directory.CreateDirectory(directoryPath);
-        }
+        // if (!Directory.Exists(directoryPath))
+        // {
+        //     Directory.CreateDirectory(directoryPath);
+        // }
 
-        //string file = Application.dataPath + "/Data/level.json";
+    
         if (levelData.arrayDir.Length > 0)
         {
             string json = JsonUtility.ToJson(levelData);
-           
-            File.WriteAllText(filePath, json);
-           // Debug.Log("luu phai"+filePath);
-            //File.WriteAllText(file, json);
-            //Debug.Log(file);
+            PlayerPrefs.SetString(LEVELDATA, json);
+            //File.WriteAllText(filePath, json);
+         
         }
         else
         {
-           // Debug.Log("khong luu dc");
+           
             ClearDataSaveGame();
         }
-        //Debug.Log("??"+ arraydir.Length);
+        
     }
     //void OnGUI()
     //{
@@ -515,30 +543,32 @@ public class LevelManager : Singleton<LevelManager>
 
     public void ClearDataSaveGame()
     {
-        string directoryPath = Path.Combine(Application.persistentDataPath, "Resources");
+        // string directoryPath = Path.Combine(Application.persistentDataPath, "Resources");
 
-        string filePath = Path.Combine(directoryPath, "level.json");
+        // string filePath = Path.Combine(directoryPath, "level.json");
 
-        if (!Directory.Exists(directoryPath))
-        {
-            Directory.CreateDirectory(directoryPath);
-        }
-        File.WriteAllText(filePath, "");
+        // if (!Directory.Exists(directoryPath))
+        // {
+        //     Directory.CreateDirectory(directoryPath);
+        // }
+        // File.WriteAllText(filePath, "");
+        PlayerPrefs.DeleteKey(LEVELDATA);
     }
 
     public bool CheckSaveGame()
     {
-        string directoryPath = Path.Combine(Application.persistentDataPath, "Resources");
+        // string directoryPath = Path.Combine(Application.persistentDataPath, "Resources");
 
-        string filePath = Path.Combine(directoryPath, "level.json");
-        if (!File.Exists(filePath))
-        {
-            return false;
-        }
+        // string filePath = Path.Combine(directoryPath, "level.json");
+        // if (!File.Exists(filePath))
+        // {
+        //     return false;
+        // }
         
        
-        string json = File.ReadAllText(filePath);
-        
+        // string json = File.ReadAllText(filePath);
+        string json = PlayerPrefs.GetString(LEVELDATA);
+
         if (json == "" || json == null)
         {
            // Debug.Log(filePath+"ko co giu lieu "+ json);
@@ -546,7 +576,6 @@ public class LevelManager : Singleton<LevelManager>
         }
         else
         {
-           // Debug.Log("co du lieu");
             LevelData leveldata = JsonUtility.FromJson<LevelData>(json);
             LevelIDInt = leveldata.LevelID;
             statusLevel = leveldata.statusID;
@@ -580,18 +609,33 @@ public class LevelManager : Singleton<LevelManager>
         //}
         List<Transform> childObjects = new List<Transform>();
 
-        foreach (Transform child in temporarymain)
+        // foreach (Transform child in temporarymain)
+        // {
+        //     childObjects.Add(child);
+        // }
+
+
+         foreach (Transform child in pretransform)
         {
-            childObjects.Add(child);
+             childObjects.Add(child);
         }
+        // foreach (Transform child in childObjects)
+        // {
+        //     child.SetParent(pretransform);
+        // }
+        // foreach (Transform child in pretransform)
+        // {
+        //     child.gameObject.SetActive(false);
+        // }
         foreach (Transform child in childObjects)
         {
-            child.SetParent(pretransform);
+            child.SetParent(Controller.Instance.TempPreForParent);
         }
-        foreach (Transform child in pretransform)
+        foreach (Transform child in Controller.Instance.TempPreForParent)
         {
             child.gameObject.SetActive(false);
         }
+        
     }
 
     public void CheckWin()
@@ -668,22 +712,32 @@ public class LevelManager : Singleton<LevelManager>
         return null;
     }
 
-    public float ReturnyCamera(int index)
+    public float ReturnyCamera(float index)
     {
-        if(index <= 5)
-        {
-            return -13.5f;
+        Debug.Log(index);
+        if(index<6){
+            return -8 - index * 0.5f;
+        }else if(index < 9){
+            return -8 - index * 1.25f;
+        }else{
+            return -8 - index * 1.5f;
         }
-        else if (index < 20)
-        {
-            return -15;
-        }else if(index < 120)
-        {
-            return -16.5f;
-        }
-        else
-        {
-            return -23;
-        }
+        
+        // if(index <= 10)
+        // {
+        //     //return -13.5f;
+        //     return -8 - index * 0.3f;
+        // }
+        // else if (index < 20)
+        // {
+        //     return -15-index*0.3f;
+        // }else if(index < 120)
+        // {
+        //     return -16.5f;
+        // }
+        // else
+        // {
+        //     return -23;
+        // }
     }
 }

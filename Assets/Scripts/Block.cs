@@ -88,7 +88,7 @@ public class Block : MonoBehaviour, IListenerBlock
 
     private void OnEnable()
     {
-        endPosition =  transform.position;
+        //endPosition =  transform.position;
 
         ChangSkinHmm();
 
@@ -148,7 +148,8 @@ public class Block : MonoBehaviour, IListenerBlock
     }
     public IEnumerator IMoveGift()
     {
-        transform.parent = LevelManager.Instance.temporarymain;
+        transform.parent = Controller.Instance.TempPreForParent;
+        //LevelManager.Instance.temporarymain;
         QuadraticCurve.Instance.A.position = transform.position;
         QuadraticCurve.Instance.ClearPositionB();
         float sampleTime = 0f;
@@ -295,7 +296,7 @@ public class Block : MonoBehaviour, IListenerBlock
         }
 
         checkDirection();
-        transform.parent = LevelManager.Instance.temporarymain;
+        transform.parent = Controller.Instance.TempPreForParent;
 
         LevelManager.Instance.CheckWin();
         StartCoroutine(Run(transform.TransformDirection(dir2)));
@@ -346,22 +347,19 @@ public class Block : MonoBehaviour, IListenerBlock
         {
             Controller.Instance.Checkawaitload();
         });
-        transform.DORotate(new Vector3(0, 360, 0), 1f, RotateMode.FastBeyond360).OnComplete(() =>
-        {
-            transform.rotation = startRotation;
-        });
+        transform.DORotate(startRotation.eulerAngles, 1f, RotateMode.FastBeyond360);
         transform.DOScale(startScale, 1f).OnComplete(() =>
         {
             transform.localScale = startScale;
         });
     }
-
     public void checkDirection()
     {
         switch (Direction)
         {
              case DirectionBlock.Left:
                 dir = -transform.right;
+                //dir = -ModelBlock.transform.localRight;
                 break;
              case DirectionBlock.Right:
                 dir = transform.right;
@@ -431,43 +429,45 @@ public class Block : MonoBehaviour, IListenerBlock
             case 1:
                 Direction =  DirectionBlock.Down;
                 dir2 = Vector3.down;
-                ModelBlock.transform.eulerAngles = new Vector3(90, 0, 0);
+                //ModelBlock.transform.eulerAngles = new Vector3(90, 0, 0);
+                ModelBlock.transform.localEulerAngles = new Vector3(90, 0, 0);
                 break;
             case 2:
                 Direction = DirectionBlock.Up;
                 dir2 = Vector3.up;
-                ModelBlock.transform.eulerAngles = new Vector3(-90, 0, 0);
+                ModelBlock.transform.localEulerAngles= new Vector3(-90, 0, 0);
                 break;
             case 3:
                 Direction = DirectionBlock.Back;       
                 dir2 = Vector3.back;
-                ModelBlock.transform.eulerAngles = new Vector3(180, 0, 0);
+                ModelBlock.transform.localEulerAngles = new Vector3(180, 0, 0);
                 break;
             case 4:
                 Direction = DirectionBlock.Forward;
-                ModelBlock.transform.eulerAngles = new Vector3(0, 0, 0);
+                ModelBlock.transform.localEulerAngles= new Vector3(0, 0, 0);
                 dir2 = Vector3.forward;
                 break;
             case 5:
                 Direction = DirectionBlock.Left;              
                 dir2 = Vector3.left;
-                ModelBlock.transform.eulerAngles = new Vector3(0, -90, 0);
+                ModelBlock.transform.localEulerAngles = new Vector3(0, -90, 0);
                 break;
             case 6:
                 Direction = DirectionBlock.Right;
                 dir2 = Vector3.right;
-                ModelBlock.transform.eulerAngles = new Vector3(0, 90, 0);
+                ModelBlock.transform.localEulerAngles = new Vector3(0, 90, 0);
                 break;
             default:
                 Direction = DirectionBlock.Right;          
                 dir2 = Vector3.right;
-                ModelBlock.transform.eulerAngles = new Vector3(0, 90, 0);
+                ModelBlock.transform.localEulerAngles = new Vector3(0, 90, 0);
                 break;
         }
     }
     public void Crack(Vector3 positionFakeParent)
     {
         //Vector3 direction = (transform.position - transform.parent.position).normalized;
+        endPosition = transform.position;
         Vector3 direction = (transform.position - positionFakeParent).normalized;
         Vector3 targetPosition = transform.position + direction * 5;
         transform.position = targetPosition;
@@ -479,7 +479,8 @@ public class Block : MonoBehaviour, IListenerBlock
         //Vector3 direction = (transform.position - transform.parent.position).normalized;
         Vector3 direction = Random.insideUnitSphere.normalized;
         Vector3 targetPosition = transform.position + direction * 5;
-        transform.parent = LevelManager.Instance.temporarymain;
+        transform.parent = Controller.Instance.TempPreForParent;
+        //LevelManager.Instance.temporarymain;
         //Vector3 direction = (transform.position - transform.parent.position).normalized;
         //direction.y += Random.Range(3f, 5f); // Thêm thành phần theo chiều dọc
         //direction = direction.normalized;

@@ -34,6 +34,8 @@ public enum ButtonEnum
 }
 public class Controller : Singleton<Controller>
 {
+    public float timer;
+    public Transform test;
     public Vector3 screenPosition;
     public Vector3 worldPosition;
     
@@ -172,11 +174,8 @@ public class Controller : Singleton<Controller>
     }
     private void Start()
     {
-       // timer = 0;
-       //int checkFlagSkin = PlayerPrefs.GetInt("SkinIndex"); 
        IndexSkin = PlayerPrefs.GetInt("SkinIndex");
        CoinPlayer = PlayerPrefs.GetInt("Coin");
-       //TrailsObjectTarget = PlayerPrefs.GetString("TrailsObjectTarget");
     }
     private void Update()
     {
@@ -188,15 +187,6 @@ public class Controller : Singleton<Controller>
             userInteraction();
         }
     }
- 
-    private void LateUpdate()
-    {
-        //if(stateGame == StateGame.PLAY) {
-        //    userInteraction();
-        //}
-        //userInteraction();
-    }
-
     public void Checkawaitload()
     {
         checkloadBlock++;
@@ -208,31 +198,6 @@ public class Controller : Singleton<Controller>
             }
         }
     }
-
-    //private void OnApplicationQuit()
-    //{
-    //    int i = 0;
-    //    int[] arraytest = new int[ListenerBlock.Count];
-
-    //    // kiem tra xem mang co toan -1 hay khong
-    //    bool checkminus1 = false;
-    //    foreach(var item in ListenerBlock)
-    //    {
-    //        arraytest[i] = item.IType();
-    //        if (arraytest[i] != -1 && !checkminus1) {
-    //            checkminus1 = true;
-    //        }
-    //        i++;
-    //    }
-    //    if (checkminus1)
-    //    {
-    //        LevelManager.Instance.SaveGame(arraytest);
-    //    }
-    //    else
-    //    {
-    //        LevelManager.Instance.ClearDataSaveGame();
-    //    }
-    //}
     private void OnApplicationPause(bool pauseStatus)
     {
         if (pauseStatus)
@@ -252,7 +217,6 @@ public class Controller : Singleton<Controller>
     {
         int i = 0;
         int[] arraytest = new int[ListenerBlock.Count];
-
         // kiem tra xem mang co toan -1 hay khong
         bool checkminus1 = false;
         foreach (var item in ListenerBlock)
@@ -278,7 +242,6 @@ public class Controller : Singleton<Controller>
     {
         //luu skin
         PlayerPrefs.SetInt("SkinIndex", index);
-
         IndexSkin = index;
         foreach(var item in ListenerBlock)
         {
@@ -288,85 +251,75 @@ public class Controller : Singleton<Controller>
     
     public void userInteraction()
     {
-        //if (Input.GetMouseButton(0))
-        //{
-        //   timer += Time.deltaTime;
-        //   if (timer > 0.15f)
-        //   {
-        //       manager.SwipeScreen();
-        //   }
-        //}
-        //if (Input.GetMouseButtonUp(0))
-        //{
-        //   if (timer <= 0.15f)
-        //   {
 
-        //           screenPosition = Input.mousePosition;
-        //           Ray ray = Camera.main.ScreenPointToRay(screenPosition);
-
-        //           if (Physics.Raycast(ray, out RaycastHit hitData, Mathf.Infinity, 1 << 6))
-        //           {
-        //               Block block = hitData.collider.GetComponent<Block>();
-        //               block.checkRayInput();
-
-        //               //tru limit
-        //               LevelManager.Instance.LimitMoveInt--;
-        //               if(LevelManager.Instance.LimitMoveInt==0 && Controller.Instance.gameState == StateGame.PLAY){
-        //                    UIManager.Instance.SelectAddMoveUI.gameObject.SetActive(true);
-        //                }
-        //           }
-
-        //   }
-        //   timer = 0;
-        //}
-        if (Input.touchCount == 2)
+        if (Input.GetMouseButton(0))
         {
-            ZoomInOut();
+          timer += Time.deltaTime;
+          if (timer > 0.5f)
+          {
+              manager.SwipeScreen();
+          }
         }
-        else
+        if (Input.GetMouseButtonUp(0))
         {
-            if (Input.touchCount > 0)
-            {
-                
-                Touch touch = Input.GetTouch(0);
+          if (timer <= 0.5f)
+          {
+
+                  screenPosition = Input.mousePosition;
+                  Ray ray = Camera.main.ScreenPointToRay(screenPosition);
+
+                  if (Physics.Raycast(ray, out RaycastHit hitData, Mathf.Infinity, 1 << 6))
+                  {
+                      Block block = hitData.collider.GetComponent<Block>();
+                      block.checkRayInput();
+                  }
+
+          }
+          timer = 0;
+        }
+
+
+        // if (Input.touchCount == 2)
+        // {
+        //     ZoomInOut();
+        // }
+        // else
+        // {
+        //     if (Input.touchCount > 0)
+        //     {
+        //     // Debug.Log("Hoko");   
+        //         Touch touch = Input.GetTouch(0);
                
-                if (touch.phase == TouchPhase.Began)
-                {
-                    touchStartTime = Time.time;
+        //         if (touch.phase == TouchPhase.Began)
+        //         {
+        //             touchStartTime = Time.time;
                     
-                }   
-                else if (touch.phase == TouchPhase.Moved)
-                {
-                    float touchhaiTime = Time.time;
-                    float touchDurationMove = touchhaiTime - touchStartTime;
-                    if (touchDurationMove > 0.15)
-                    {
-                        manager.SwipeScreen();
-                    }
+        //         }   
+        //         else if (touch.phase == TouchPhase.Moved)
+        //         {
+        //             float touchhaiTime = Time.time;
+        //             float touchDurationMove = touchhaiTime - touchStartTime;
+        //             if (touchDurationMove > 0.15)
+        //             {
+        //                 manager.SwipeScreen();
+        //             }
                     
-                }
-                else if (touch.phase == TouchPhase.Ended)
-                {
-                    float touchEndTime = Time.time;
-                    float touchDuration = touchEndTime - touchStartTime;
-                    Debug.Log(Time.deltaTime+"?"+touchDuration );
-                    if (touchDuration < 0.5f)
-                    {
-                        Debug.Log("HAHAHA");
-                        EffectTouch(touch.position);
-                        TouchClickBlock();
-                    }
-                }
-            }
-        }
+        //         }
+        //         else if (touch.phase == TouchPhase.Ended)
+        //         {
+        //             float touchEndTime = Time.time;
+        //             float touchDuration = touchEndTime - touchStartTime;
+        //            // Debug.Log(Time.deltaTime+"?"+touchDuration );
+        //             if (touchDuration < 0.5f)
+        //             {
+        //                // Debug.Log("HAHAHA");
+        //                 EffectTouch(touch.position);
+        //                 TouchClickBlock();
+        //             }
+        //         }
+        //     }
+        // }
 
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    //TapPooling.Instance.CreateTap(Input.mousePosition);
-        //    Vector3 posisionMouse = Input.mousePosition;
-        //    posisionMouse.z = 6;
-        //    TapPooling.Instance.CreateTap(posisionMouse);
-        //}
     }
 
     public void EffectTouch(Vector3 position)
@@ -444,16 +397,7 @@ public class Controller : Singleton<Controller>
     {
         UIManager.Instance.CompleteLevelUI.SetActive(true);
     }
-    // IEnumerator CheckTimeParticle()
-    // {
-    //    float time = 0;
-    //    while (WinPS.isPlaying && time<3)
-    //    {
-    //        time += Time.deltaTime;
-    //        yield return null;
-    //    }
-    //    UIManager.Instance.CompleteLevelUI.SetActive(true);
-    // }
+
     void OnGUI()
     {
         //if (GUI.Button(new Rect(250, 10, 150, 100), "RanDom Gift"))

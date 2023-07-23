@@ -105,20 +105,28 @@ namespace HieuLajj
         {
 
             int flag = LevelManager.Instance.DataDiffical[Controller.Instance.DiffirentGame];
+            
             if (Level < flag)
             {
                 Actived();
             }
             else if (Level == flag || Level == flag2 + 1)
             {
-                if (Level == Controller.Instance.constantsDiffical[Controller.Instance.DiffirentGame])
-                {
+                if(Controller.Instance.DiffirentGame == DiffirentEnum.EASY  && Level == Controller.Instance.constantsDiffical[DiffirentEnum.EASY]){
+                    Actived();        
+                }else if(Controller.Instance.DiffirentGame == DiffirentEnum.MEDIUM  && Level == Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM]+Controller.Instance.constantsDiffical[DiffirentEnum.EASY]){
+                    Actived();
+                }else if(Controller.Instance.DiffirentGame == DiffirentEnum.HARD && Level == Controller.Instance.constantsDiffical[DiffirentEnum.HARD] + Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM] + Controller.Instance.constantsDiffical[DiffirentEnum.EASY]){
                     Actived();
                 }
                 else
                 {
                     Activing();
                 }
+                //   if (Level == Controller.Instance.constantsDiffical[Controller.Instance.DiffirentGame])
+                // {
+                //     Actived();
+                // }
             }
             else
             {

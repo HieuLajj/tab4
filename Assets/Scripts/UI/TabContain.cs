@@ -24,23 +24,26 @@ public class TabContain : MonoBehaviour
         }
         else if (Controller.Instance.DiffirentGame == DiffirentEnum.MEDIUM)
         {
-            flag = 10;
+            flag = Controller.Instance.constantsDiffical[DiffirentEnum.EASY];
         }
         else if (Controller.Instance.DiffirentGame == DiffirentEnum.HARD)
         {
-            flag = 30;
+            flag = Controller.Instance.constantsDiffical[DiffirentEnum.EASY] + Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM];
         }
         if (Controller.Instance.DiffirentGame == DiffirentEnum.EASY)
         {
             textLevel.text = $"Levels 1 - {Controller.Instance.constantsDiffical[DiffirentEnum.EASY]}";
+            textTienDo.text = $" {LevelManager.Instance.DataDiffical[Controller.Instance.DiffirentGame]}/{Controller.Instance.constantsDiffical[DiffirentEnum.EASY]} ";
         }
         else if (Controller.Instance.DiffirentGame == DiffirentEnum.MEDIUM)
         {
-            textLevel.text = $"Levels {Controller.Instance.constantsDiffical[DiffirentEnum.EASY] + 1} - {Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM]}";
+            textLevel.text = $"Levels {Controller.Instance.constantsDiffical[DiffirentEnum.EASY] + 1} - {Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM] + Controller.Instance.constantsDiffical[DiffirentEnum.EASY]}";
+            textTienDo.text = $" {LevelManager.Instance.DataDiffical[Controller.Instance.DiffirentGame]}/{Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM] + Controller.Instance.constantsDiffical[DiffirentEnum.EASY]} ";
         }
         else if (Controller.Instance.DiffirentGame == DiffirentEnum.HARD)
         {
-            textLevel.text = $"Levels {Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM] + 1} - 300";
+            textLevel.text = $"Levels {Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM] + 1} - {Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM] + Controller.Instance.constantsDiffical[DiffirentEnum.EASY] + Controller.Instance.constantsDiffical[DiffirentEnum.HARD]}";
+            textTienDo.text = $" {LevelManager.Instance.DataDiffical[Controller.Instance.DiffirentGame]}/{Controller.Instance.constantsDiffical[DiffirentEnum.MEDIUM] + Controller.Instance.constantsDiffical[DiffirentEnum.EASY] + Controller.Instance.constantsDiffical[DiffirentEnum.HARD]} ";
         }
         //Debug.Log((LevelManager.Instance.DataDiffical[Controller.Instance.DiffirentGame] - flag) / Controller.Instance.constantsDiffical[Controller.Instance.DiffirentGame]);
         float a = LevelManager.Instance.DataDiffical[Controller.Instance.DiffirentGame] - flag;
@@ -65,7 +68,7 @@ public class TabContain : MonoBehaviour
             }
         }
 
-        textTienDo.text = $" {LevelManager.Instance.DataDiffical[Controller.Instance.DiffirentGame]}/{Controller.Instance.constantsDiffical[Controller.Instance.DiffirentGame]} ";
+        // textTienDo.text = $" {LevelManager.Instance.DataDiffical[Controller.Instance.DiffirentGame]}/{Controller.Instance.constantsDiffical[Controller.Instance.DiffirentGame]} ";
 
     }
 
